@@ -1,8 +1,8 @@
 site_name: VapourSynth · AI Video Guide
 site_description: A reproducible Windows guide to VapourSynth, JET, MLRT and ONNX video models.
-site_url: https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPOSITORY/
-repo_url: https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY
-repo_name: YOUR_GITHUB_USERNAME/YOUR_REPOSITORY
+site_url: https://yuui03e.github.io/vapoursynth-ai-video-guide/
+repo_url: https://github.com/Yuui03E/vapoursynth-ai-video-guide
+repo_name: Yuui03E/vapoursynth-ai-video-guide
 edit_uri: edit/main/docs/
 docs_dir: docs
 site_dir: site

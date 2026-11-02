@@ -32,7 +32,7 @@ Choose a repository name such as `vapoursynth-ai-video-guide`. The name is part 
 Open `mkdocs.yml` and replace:
 
 ```yaml
-site_url: https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPOSITORY/
+site_url: https://yuui03e.github.io/vapoursynth-ai-video-guide/
 ```
 
 with the actual Pages URL. For example, if the account is `example-user` and the repository is `vapoursynth-ai-video-guide`, use:
@@ -73,7 +73,7 @@ git init
 git add .
 git commit -m "Add VapourSynth AI video documentation"
 git branch -M main
-git remote add origin https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY.git
+git remote add origin https://github.com/Yuui03E/vapoursynth-ai-video-guide.git
 git push -u origin main
 ```
 

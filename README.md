@@ -3,12 +3,12 @@
   <h1>VapourSynth · AI Video Guide</h1>
   <p><strong>A practical, reproducible Windows setup for VapourSynth and ONNX video models.</strong></p>
   <p>
-    <a href="https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY/actions/workflows/docs.yml"><img src="https://img.shields.io/github/actions/workflow/status/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY/docs.yml?branch=main&style=flat-square&label=docs%20build" alt="Documentation build"></a>
+    <a href="https://github.com/Yuui03E/vapoursynth-ai-video-guide/actions/workflows/docs.yml"><img src="https://img.shields.io/github/actions/workflow/status/Yuui03E/vapoursynth-ai-video-guide/docs.yml?branch=main&style=flat-square&label=docs%20build" alt="Documentation build"></a>
     <img src="https://img.shields.io/badge/platform-Windows%2011-2563eb?style=flat-square" alt="Windows 11">
     <img src="https://img.shields.io/badge/Python-3.14.10-3776AB?style=flat-square" alt="Python 3.14.10">
     <img src="https://img.shields.io/badge/VapourSynth-R81-0f766e?style=flat-square" alt="VapourSynth R81">
   </p>
-  <p><a href="https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPOSITORY/">Read the documentation site ↗</a></p>
+  <p><a href="https://yuui03e.github.io/vapoursynth-ai-video-guide/">Read the documentation site ↗</a></p>
 </div>
 
 ---
