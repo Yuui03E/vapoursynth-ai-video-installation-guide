@@ -1,0 +1,24 @@
+# Documentation build output
+site/
+.venv/
+__pycache__/
+*.py[cod]
+
+# Local video and model assets — do not commit these to the docs repository
+*.mkv
+*.mp4
+*.mov
+*.avi
+*.y4m
+*.onnx
+*.engine
+*.plan
+*.trt
+*.cache
+
+# Local audit output (review and sanitize before publishing)
+*_environment_report.md
+*_environment_manifest.json
+packages-tested.json
+requirements-tested.txt
+pip-check.txt

@@ -1,0 +1,245 @@
+/* Brand system: deep graphite, cool blue, teal and restrained violet. */
+:root {
+  --guide-ink: #111827;
+  --guide-muted: #66758b;
+  --guide-blue: #4f8df7;
+  --guide-cyan: #42c9c5;
+  --guide-line: rgba(120, 145, 175, .22);
+  --guide-surface: rgba(130, 160, 195, .065);
+  --guide-radius: 18px;
+}
+
+html { scroll-behavior: smooth; }
+
+/* Give the documentation a little more room without making paragraphs too wide. */
+.md-grid { max-width: 1500px; }
+
+/* Landing-page hero and content cards. */
+.hero-panel {
+  position: relative;
+  overflow: hidden;
+  margin: 1rem 0 2rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border: 1px solid rgba(111, 158, 220, .28);
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 82% 12%, rgba(66, 201, 197, .16), transparent 27rem),
+    radial-gradient(circle at 12% 110%, rgba(79, 141, 247, .20), transparent 30rem),
+    linear-gradient(135deg, #101b2e 0%, #111c30 58%, #102936 100%);
+  color: #eef5ff;
+  box-shadow: 0 24px 64px rgba(3, 10, 22, .22);
+}
+.hero-panel h1, .hero-panel h2, .hero-panel p { color: inherit; }
+.hero-panel h1 {
+  max-width: 850px;
+  margin: .55rem 0 1rem;
+  font-size: clamp(2.1rem, 5vw, 3.65rem);
+  line-height: 1.08;
+  letter-spacing: -.045em;
+}
+.hero-panel .hero-lede {
+  max-width: 760px;
+  color: #c5d3e6;
+  font-size: 1.06rem;
+}
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .38rem .72rem;
+  border: 1px solid rgba(137, 181, 239, .28);
+  border-radius: 999px;
+  background: rgba(255,255,255,.055);
+  color: #a9d8ff;
+  font-size: .72rem;
+  font-weight: 750;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  margin-top: 1.35rem;
+}
+.hero-meta span {
+  padding: .35rem .65rem;
+  border: 1px solid rgba(200,220,245,.16);
+  border-radius: 8px;
+  background: rgba(255,255,255,.055);
+  color: #d9e6f6;
+  font-size: .78rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.doc-card {
+  min-height: 150px;
+  padding: 1.2rem 1.25rem;
+  border: 1px solid var(--guide-line);
+  border-radius: var(--guide-radius);
+  background: var(--guide-surface);
+  transition: transform .18s ease, border-color .18s ease, background .18s ease;
+}
+.doc-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(79, 141, 247, .55);
+  background: rgba(79, 141, 247, .075);
+}
+.doc-card h3 { margin: .2rem 0 .55rem; font-size: 1.02rem; }
+.doc-card p { margin: 0; color: var(--guide-muted); font-size: .9rem; }
+.doc-card .card-index {
+  color: var(--guide-blue);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+/* Compact labels and progress/status treatments. */
+.status-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .55rem;
+  margin: .8rem 0 1rem;
+}
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .27rem .6rem;
+  border: 1px solid var(--guide-line);
+  border-radius: 999px;
+  background: var(--guide-surface);
+  font-size: .74rem;
+  font-weight: 700;
+}
+.status-chip.good { border-color: rgba(39, 174, 120, .35); color: #2ba879; }
+.status-chip.warn { border-color: rgba(222, 157, 50, .4); color: #c78a22; }
+.status-chip.info { border-color: rgba(79, 141, 247, .35); color: #4f8df7; }
+
+/* Code-first documentation: strong borders, no enormous round corners. */
+pre {
+  border: 1px solid var(--guide-line) !important;
+  border-radius: 13px !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,.08);
+}
+code, pre, kbd { font-variant-ligatures: none; }
+
+/* Tables are easier to scan when headings stay quiet and rows remain compact. */
+.md-typeset table:not([class]) th {
+  font-size: .78rem;
+  letter-spacing: .035em;
+  text-transform: uppercase;
+}
+.md-typeset table:not([class]) td { vertical-align: top; }
+
+/* Callout blocks. */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 13px;
+  border-width: 1px;
+  box-shadow: none;
+}
+
+/* Slightly clearer heading rhythm. */
+.md-typeset h1 { letter-spacing: -.035em; font-weight: 760; }
+.md-typeset h2 { margin-top: 2.2em; letter-spacing: -.02em; }
+.md-typeset h3 { letter-spacing: -.01em; }
+
+@media (max-width: 760px) {
+  .card-grid { grid-template-columns: 1fr; }
+  .hero-panel { border-radius: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+}
+
+/* Navigation and reading surface polish. */
+.md-header {
+  box-shadow: 0 8px 30px rgba(4, 12, 24, .12);
+  border-bottom: 1px solid rgba(140, 170, 205, .14);
+}
+.md-tabs {
+  border-bottom: 1px solid var(--guide-line);
+}
+.md-main__inner {
+  margin-top: .65rem;
+}
+.md-content__inner {
+  padding-bottom: 3rem;
+}
+.md-search__form {
+  border: 1px solid rgba(140, 170, 205, .18);
+  border-radius: 11px;
+}
+.md-nav__link--active,
+.md-nav__link:focus,
+.md-nav__link:hover {
+  color: var(--guide-blue);
+}
+
+/* Refined link and heading hierarchy. */
+.md-typeset a:not(.doc-card a) {
+  text-underline-offset: .18em;
+  text-decoration-thickness: .07em;
+}
+.md-typeset h1 {
+  margin-bottom: 1.15rem;
+}
+.md-typeset h2 {
+  padding-bottom: .42rem;
+  border-bottom: 1px solid var(--guide-line);
+}
+.md-typeset h3 {
+  margin-top: 1.5rem;
+}
+
+/* Tables and command blocks should feel like technical documentation. */
+.md-typeset table:not([class]) {
+  border: 1px solid var(--guide-line);
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: .88rem;
+}
+.md-typeset table:not([class]) th {
+  background: rgba(79, 141, 247, .075);
+}
+.md-typeset pre > code {
+  font-size: .82rem;
+  line-height: 1.65;
+}
+.md-typeset .highlight {
+  margin: 1rem 0 1.35rem;
+}
+.md-typeset .highlight pre {
+  margin: 0;
+}
+
+/* Make cards read as one coherent component, not unrelated boxes. */
+.doc-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.doc-card h3 a {
+  color: var(--md-typeset-color);
+  text-decoration: none;
+}
+.doc-card h3 a:hover {
+  color: var(--guide-blue);
+}
+.doc-card p + p {
+  margin-top: .5rem;
+}
+
+/* Keep status labels legible in both light and dark schemes. */
+[data-md-color-scheme="slate"] .status-chip.good { color: #65d6a8; }
+[data-md-color-scheme="slate"] .status-chip.warn { color: #f0bd63; }
+[data-md-color-scheme="slate"] .status-chip.info { color: #88b6ff; }
+[data-md-color-scheme="slate"] .doc-card p { color: #aab8ca; }

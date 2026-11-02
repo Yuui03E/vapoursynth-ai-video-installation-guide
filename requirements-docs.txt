@@ -1,0 +1,2 @@
+# Documentation tooling only. This is separate from the VapourSynth runtime.
+zensical==0.0.74

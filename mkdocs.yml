@@ -1,0 +1,91 @@
+site_name: VapourSynth · AI Video Guide
+site_description: A reproducible Windows guide to VapourSynth, JET, MLRT and ONNX video models.
+site_url: https://YOUR_GITHUB_USERNAME.github.io/YOUR_REPOSITORY/
+repo_url: https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY
+repo_name: YOUR_GITHUB_USERNAME/YOUR_REPOSITORY
+edit_uri: edit/main/docs/
+docs_dir: docs
+site_dir: site
+
+# Zensical reads the familiar MkDocs configuration format. The modern variant
+# is styled further by docs/stylesheets/extra.css.
+theme:
+  variant: modern
+  logo: assets/vapoursynth-mark.svg
+  favicon: assets/favicon.svg
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.path
+    - navigation.top
+    - navigation.tracking
+    - content.code.copy
+    - content.tabs.link
+    - search.highlight
+    - search.suggest
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: cyan
+      toggle:
+        icon: lucide/moon
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: cyan
+      toggle:
+        icon: lucide/sun
+        name: Switch to light mode
+
+nav:
+  - Overview: index.md
+  - Start here:
+      - start-here/index.md
+      - Prerequisites: start-here/prerequisites.md
+      - Installation: installation/windows.md
+      - Verification: installation/verification.md
+  - Example scripts:
+      - examples/index.md
+  - Model workflows:
+      - models/index.md
+      - AnimeJaNai: models/animejanai.md
+      - Waifu2x: models/waifu2x.md
+      - RIFE: models/rife.md
+      - Other models: models/other-models.md
+  - Workflows:
+      - Preview and render: workflows/preview-and-render.md
+      - Color and frame formats: workflows/color-and-formats.md
+  - Reference:
+      - Tested environment: reference/tested-environment.md
+      - Validation status: reference/validation-status.md
+      - Model inventory: reference/model-inventory.md
+      - Glossary: reference/glossary.md
+  - Troubleshooting: troubleshooting/index.md
+  - Maintaining the guide: maintenance.md
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
