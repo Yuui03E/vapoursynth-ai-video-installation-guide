@@ -95,9 +95,18 @@
     localStorage.setItem(STORAGE_KEY_ENABLED, val ? 'true' : 'false');
   }
 
+  // Default to dark mode (slate) if user hasn't explicitly chosen a palette yet
+  try {
+    const userPalette = localStorage.getItem('/.__palette') || localStorage.getItem('__palette');
+    if (!userPalette) {
+      document.documentElement.setAttribute('data-md-color-scheme', 'slate');
+      if (document.body) document.body.setAttribute('data-md-color-scheme', 'slate');
+    }
+  } catch (e) {}
+
   function getOpacity() {
     const val = localStorage.getItem(STORAGE_KEY_OPACITY);
-    return val ? parseFloat(val) : 0.35;
+    return val !== null ? parseFloat(val) : 1.0;
   }
 
   function setOpacity(val) {
@@ -162,9 +171,9 @@
           <div class="ryoku-art-field">
             <div class="ryoku-art-field-header">
               <label for="ryoku-art-opacity-input">Side Art Opacity</label>
-              <span id="ryoku-art-opacity-val" class="ryoku-art-badge">35%</span>
+              <span id="ryoku-art-opacity-val" class="ryoku-art-badge">100%</span>
             </div>
-            <input type="range" id="ryoku-art-opacity-input" min="5" max="85" value="35" />
+            <input type="range" id="ryoku-art-opacity-input" min="10" max="100" value="100" />
           </div>
 
           <div class="ryoku-art-field">

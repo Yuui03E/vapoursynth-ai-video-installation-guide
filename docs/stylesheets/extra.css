@@ -775,7 +775,7 @@ body::after {
   object-fit: cover;
   object-position: center;
   transition: opacity 0.35s ease;
-  filter: saturate(0.9) brightness(0.85);
+  filter: none;
 }
 
 /* Fade overlays for seamless black blend */

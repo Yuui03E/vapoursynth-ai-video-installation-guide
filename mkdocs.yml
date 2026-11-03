@@ -25,15 +25,15 @@ theme:
     - search.highlight
     - search.suggest
   palette:
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
+    # Default to dark mode (slate)
+    - scheme: slate
       primary: black
       accent: red
       toggle:
         icon: lucide/sun
         name: Switch to light mode
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
+    # Light mode toggle option
+    - scheme: default
       primary: black
       accent: red
       toggle:
