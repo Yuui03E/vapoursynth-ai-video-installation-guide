@@ -1,149 +1,186 @@
 /* ==========================================================================
-   Ryoku Design System for VapourSynth AI Video Installation Guide
-   Inspired by https://ryoku.dev/ & https://docs.ryoku.dev/
-   Aesthetic: Technical Japanese minimalism, deep carbon paper, warm bone ink,
-              crimson cinnabar accent (sun), sharp geometric rules & precision.
+   Ryoku Design System — VapourSynth AI Video Guide
+   Authentic replica of https://ryoku.dev/ & https://docs.ryoku.dev/
+   
+   Palette:
+     Paper (canvas):       #000000 / #050505
+     Paper raised / card:  #08090a / #0d0e11
+     Ink (primary text):   #cdc4ba (warm bone / linen)
+     Ink dim:              #b0a9a0 (soft secondary)
+     Ink muted:            #8c867e
+     Ink faint:            #736d65
+     Sun / Signal:         #e2342a (Japanese cinnabar red)
+     Jade / Success:       #6daf8c
+     Steel / Info:         #6ea5cf
+     Line:                 rgba(205, 196, 186, 0.16)
+     Line soft:            rgba(205, 196, 186, 0.08)
+     Line strong:          rgba(205, 196, 186, 0.36)
+     Radius:               2px
+   
+   Typography:
+     Headings:             "Fraunces", Georgia, serif
+     Body / Sans:          "Space Grotesk", "Noto Sans JP", sans-serif
+     Code / Technical:     "JetBrains Mono", monospace
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* ==========================================================================
+   Root Rescaling (Strictly lock base font-size to prevent Zensical bloat)
+   ========================================================================== */
 
 :root {
-  /* Ryoku Core Palette */
   --ryoku-paper: #000000;
-  --ryoku-paper-raised: #0a0a0c;
-  --ryoku-paper-card: #0d0e11;
-  --ryoku-ink: #cdc4ba;          /* Warm bone / cream white */
-  --ryoku-ink-dim: #b0a9a0;      /* Dimmed secondary text */
-  --ryoku-ink-muted: #958f87;    /* Muted text */
-  --ryoku-ink-faint: #807a73;    /* Faint technical labels */
-  --ryoku-sun: #e2342a;          /* Signature Ryoku Cinnabar / Crimson Red */
+  --ryoku-paper-raised: #08090a;
+  --ryoku-paper-card: #0c0d0f;
+  --ryoku-ink: #cdc4ba;
+  --ryoku-ink-dim: #b0a9a0;
+  --ryoku-ink-muted: #8c867e;
+  --ryoku-ink-faint: #736d65;
+  --ryoku-sun: #e2342a;
   --ryoku-sun-ink: #fbeee2;
-  --ryoku-jade: #6daf8c;         /* Success / Tip green */
-  --ryoku-steel: #6ea5cf;        /* Note / Info blue */
-  --ryoku-amber: #e59344;        /* Warning orange */
-  
-  --ryoku-line: rgba(205, 196, 186, 0.18);
-  --ryoku-line-soft: rgba(205, 196, 186, 0.09);
-  --ryoku-line-strong: rgba(205, 196, 186, 0.38);
-  --ryoku-radius: 3px;
+  --ryoku-jade: #6daf8c;
+  --ryoku-steel: #6ea5cf;
+  --ryoku-amber: #e59344;
+  --ryoku-line: rgba(205, 196, 186, 0.16);
+  --ryoku-line-soft: rgba(205, 196, 186, 0.08);
+  --ryoku-line-strong: rgba(205, 196, 186, 0.36);
+  --ryoku-radius: 2px;
 
+  --ryoku-font-display: "Fraunces", Georgia, serif;
   --ryoku-font-sans: "Space Grotesk", "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
   --ryoku-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* Material / Zensical Overrides */
   --md-text-font-family: var(--ryoku-font-sans);
   --md-code-font-family: var(--ryoku-font-mono);
   --md-primary-fg-color: #050505;
-  --md-primary-fg-color--light: #0d0e11;
-  --md-primary-fg-color--dark: #000000;
   --md-accent-fg-color: var(--ryoku-sun);
 }
 
-/* Subtle organic grain overlay from Ryoku */
+/* Force base font size: 14px instead of Zensical's 20-24px blown up rem */
+html,
+html:lang(en),
+body {
+  font-size: 13.5px !important;
+  line-height: 1.62 !important;
+  background-color: var(--ryoku-paper) !important;
+  color: var(--ryoku-ink) !important;
+  scroll-behavior: smooth;
+}
+
+@media screen and (min-width: 100em) {
+  html, html:lang(en), body {
+    font-size: 14px !important;
+  }
+}
+
+/* Organic grain texture from Ryoku */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
   background-size: 140px;
-  opacity: 0.032;
+  opacity: 0.035;
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: 9999;
 }
 
-/* Ryoku text selection */
+/* Ryoku selection */
 ::selection {
   background: var(--ryoku-sun) !important;
   color: var(--ryoku-sun-ink) !important;
 }
 
-/* Dark mode root colors (Slate) */
+/* ==========================================================================
+   Color Schemes (Dark Canvas Default, Warm Linen Parchment Fallback)
+   ========================================================================== */
+
 [data-md-color-scheme="slate"] {
   --md-default-bg-color: #000000;
-  --md-default-bg-color--light: #060708;
+  --md-default-bg-color--light: #050505;
   --md-default-bg-color--lighter: #0a0b0d;
-  --md-default-bg-color--lightest: #121316;
+  --md-default-bg-color--lightest: #101114;
   --md-default-fg-color: var(--ryoku-ink);
   --md-default-fg-color--light: var(--ryoku-ink-dim);
   --md-default-fg-color--lighter: var(--ryoku-ink-muted);
   --md-default-fg-color--lightest: var(--ryoku-ink-faint);
-  --md-code-bg-color: #07080a;
+  --md-code-bg-color: #070809;
   --md-code-fg-color: #e6edf3;
   --md-typeset-color: var(--ryoku-ink);
   --md-typeset-a-color: var(--ryoku-ink);
-  background-color: #000000;
 }
 
-/* Light mode root colors (Warm parchment / paper) */
 [data-md-color-scheme="default"] {
-  --md-default-bg-color: #f7f5f2;
-  --md-default-bg-color--light: #eeeae4;
-  --md-default-bg-color--lighter: #e4dfd7;
-  --md-default-bg-color--lightest: #dad4ca;
-  --md-default-fg-color: #1f1d1a;
-  --md-default-fg-color--light: #3f3b35;
-  --md-default-fg-color--lighter: #635d55;
-  --md-default-fg-color--lightest: #8c8479;
-  --md-code-bg-color: #ece7e0;
-  --md-code-fg-color: #1f1d1a;
-  --md-typeset-color: #1f1d1a;
-  --md-typeset-a-color: #1f1d1a;
+  --ryoku-paper: #f6f3ee;
+  --ryoku-paper-raised: #ede8e0;
+  --ryoku-paper-card: #e5ded4;
+  --ryoku-ink: #1f1d1a;
+  --ryoku-ink-dim: #3f3b35;
+  --ryoku-ink-muted: #666057;
+  --ryoku-ink-faint: #8a8277;
   --ryoku-line: rgba(31, 29, 26, 0.16);
   --ryoku-line-soft: rgba(31, 29, 26, 0.08);
   --ryoku-line-strong: rgba(31, 29, 26, 0.35);
-  background-color: #f7f5f2;
-}
-
-html {
-  scroll-behavior: smooth;
+  --md-default-bg-color: #f6f3ee;
+  --md-default-bg-color--light: #ede8e0;
+  --md-default-bg-color--lighter: #e5ded4;
+  --md-default-bg-color--lightest: #dbd3c7;
+  --md-default-fg-color: #1f1d1a;
+  --md-default-fg-color--light: #3f3b35;
+  --md-default-fg-color--lighter: #666057;
+  --md-default-fg-color--lightest: #8a8277;
+  --md-code-bg-color: #ede8e0;
+  --md-code-fg-color: #1f1d1a;
+  --md-typeset-color: #1f1d1a;
+  --md-typeset-a-color: #1f1d1a;
 }
 
 .md-grid {
-  max-width: 1260px;
+  max-width: 1220px;
 }
 
 /* ==========================================================================
-   Header & Navigation (Clean, Architectural, 1px Lines)
+   Header & Navigation (Ryoku Architecture: Precision 1px Lines, Small Caps)
    ========================================================================== */
 
 .md-header {
-  background-color: rgba(5, 5, 5, 0.95) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  height: 52px !important;
+  background-color: rgba(0, 0, 0, 0.96) !important;
   border-bottom: 1px solid var(--ryoku-line) !important;
   box-shadow: none !important;
 }
 
 [data-md-color-scheme="default"] .md-header {
-  background-color: rgba(247, 245, 242, 0.95) !important;
+  background-color: rgba(246, 243, 238, 0.96) !important;
 }
 
 .md-header__title {
-  font-family: var(--ryoku-font-sans);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  font-size: 0.9rem;
+  font-family: var(--ryoku-font-sans) !important;
+  font-size: 0.82rem !important;
+  font-weight: 650 !important;
+  letter-spacing: -0.01em;
 }
 
 .md-tabs {
-  background-color: rgba(5, 5, 5, 0.92) !important;
+  background-color: rgba(0, 0, 0, 0.94) !important;
   border-bottom: 1px solid var(--ryoku-line) !important;
 }
 
 [data-md-color-scheme="default"] .md-tabs {
-  background-color: rgba(247, 245, 242, 0.92) !important;
+  background-color: rgba(246, 243, 238, 0.94) !important;
 }
 
 .md-tabs__link {
-  font-family: var(--ryoku-font-sans);
-  font-size: 0.68rem !important;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-family: var(--ryoku-font-sans) !important;
+  font-size: 0.65rem !important;
+  font-weight: 550 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
   color: var(--ryoku-ink-dim) !important;
-  padding: 0.85rem 0.8rem;
-  transition: color 0.12s ease;
+  padding: 0.65rem 0.75rem !important;
+  transition: color 0.1s ease;
 }
 
 .md-tabs__link:hover,
@@ -156,24 +193,27 @@ html {
   color: #000000 !important;
 }
 
-.md-tabs__item--active {
-  position: relative;
-}
-
 .md-tabs__item--active::after {
   content: "";
   position: absolute;
   bottom: 0;
-  left: 0.8rem;
-  right: 0.8rem;
+  left: 0.75rem;
+  right: 0.75rem;
   height: 2px;
   background-color: var(--ryoku-sun);
 }
 
+.md-nav {
+  font-family: var(--ryoku-font-sans) !important;
+  font-size: 0.74rem !important;
+  line-height: 1.4 !important;
+}
+
 .md-nav__link {
-  font-family: var(--ryoku-font-sans);
-  font-size: 0.78rem;
-  transition: color 0.12s ease;
+  font-size: 0.74rem !important;
+  padding: 0.22rem 0 !important;
+  color: var(--ryoku-ink-dim) !important;
+  transition: color 0.1s ease;
 }
 
 .md-nav__link--active,
@@ -183,61 +223,81 @@ html {
 }
 
 /* ==========================================================================
-   Typography & Heading Scale (Technical, Sharp, Balanced)
+   Typography Hierarchy (Ryoku: Fraunces Display Headings, Compact & Restrained)
    ========================================================================== */
 
 .md-typeset {
-  font-family: var(--ryoku-font-sans);
-  font-size: 0.84rem;
-  line-height: 1.68;
-  letter-spacing: -0.005em;
-  color: var(--md-typeset-color);
+  font-family: var(--ryoku-font-sans) !important;
+  font-size: 13.5px !important;
+  line-height: 1.62 !important;
+  color: var(--ryoku-ink) !important;
 }
 
 .md-typeset h1 {
-  font-size: 1.55rem !important;
-  font-weight: 700 !important;
+  font-family: var(--ryoku-font-display) !important;
+  font-size: 1.42rem !important;
+  font-weight: 500 !important;
   line-height: 1.25 !important;
-  letter-spacing: -0.03em !important;
-  margin-top: 1rem;
-  margin-bottom: 0.8rem;
+  letter-spacing: -0.025em !important;
+  color: #ffffff !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.6rem !important;
+}
+
+[data-md-color-scheme="default"] .md-typeset h1 {
+  color: #000000 !important;
 }
 
 .md-typeset h2 {
-  font-size: 1.18rem !important;
-  font-weight: 700 !important;
+  font-family: var(--ryoku-font-display) !important;
+  font-size: 1.12rem !important;
+  font-weight: 500 !important;
   letter-spacing: -0.02em !important;
-  margin-top: 1.8rem;
-  margin-bottom: 0.6rem;
-  padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--ryoku-line);
+  color: #ffffff !important;
+  margin-top: 1.6rem !important;
+  margin-bottom: 0.5rem !important;
+  padding-bottom: 0.3rem !important;
+  border-bottom: 1px solid var(--ryoku-line) !important;
+}
+
+[data-md-color-scheme="default"] .md-typeset h2 {
+  color: #000000 !important;
 }
 
 .md-typeset h3 {
-  font-size: 0.98rem !important;
+  font-family: var(--ryoku-font-sans) !important;
+  font-size: 0.92rem !important;
   font-weight: 650 !important;
   letter-spacing: -0.015em !important;
-  margin-top: 1.35rem;
-  margin-bottom: 0.4rem;
+  color: var(--ryoku-ink) !important;
+  margin-top: 1.2rem !important;
+  margin-bottom: 0.35rem !important;
 }
 
 .md-typeset h4 {
-  font-size: 0.86rem !important;
+  font-family: var(--ryoku-font-sans) !important;
+  font-size: 0.82rem !important;
   font-weight: 650 !important;
-  margin-top: 1rem;
+  margin-top: 0.9rem !important;
+}
+
+.md-typeset p {
+  margin-top: 0.45em !important;
+  margin-bottom: 0.65em !important;
+  color: var(--ryoku-ink);
 }
 
 .md-typeset hr {
   border-bottom: 1px solid var(--ryoku-line);
-  margin: 1.8em 0;
+  margin: 1.5em 0;
 }
 
 .md-typeset a {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-color: var(--ryoku-line-strong);
-  text-underline-offset: 3px;
-  transition: color 0.12s ease, text-decoration-color 0.12s ease;
+  color: inherit !important;
+  text-decoration: underline !important;
+  text-decoration-color: var(--ryoku-line-strong) !important;
+  text-underline-offset: 3px !important;
+  transition: color 0.1s ease, text-decoration-color 0.1s ease;
 }
 
 .md-typeset a:hover {
@@ -246,27 +306,27 @@ html {
 }
 
 /* ==========================================================================
-   Hero Panel (Ryoku Signature Obsidian & Cinnabar Border)
+   Hero Section (Ryoku Stage & Dossier: Minimalist Carbon Slab with Red Line)
    ========================================================================== */
 
 .hero-panel {
   position: relative;
   overflow: hidden;
-  margin: 0.6rem 0 1.6rem;
-  padding: 1.35rem 1.6rem;
+  margin: 0.4rem 0 1.4rem;
+  padding: 1.15rem 1.35rem;
   border: 1px solid var(--ryoku-line);
   border-top: 2px solid var(--ryoku-sun);
   border-radius: var(--ryoku-radius);
   background: var(--ryoku-paper-raised);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
 }
 
 .hero-panel h1 {
-  margin: 0.35rem 0 0.45rem !important;
-  font-size: 1.48rem !important;
-  font-weight: 750 !important;
-  line-height: 1.2 !important;
-  letter-spacing: -0.035em !important;
+  font-family: var(--ryoku-font-display) !important;
+  margin: 0.3rem 0 0.4rem !important;
+  font-size: 1.38rem !important;
+  font-weight: 500 !important;
+  line-height: 1.22 !important;
+  letter-spacing: -0.03em !important;
   color: #ffffff !important;
 }
 
@@ -275,26 +335,26 @@ html {
 }
 
 .hero-panel .hero-lede {
-  color: var(--ryoku-ink-dim);
-  font-size: 0.88rem;
-  line-height: 1.55;
-  margin: 0 0 0.85rem 0;
-  max-width: 820px;
+  color: var(--ryoku-ink-dim) !important;
+  font-size: 0.84rem !important;
+  line-height: 1.52 !important;
+  margin: 0 0 0.75rem 0 !important;
+  max-width: 780px;
 }
 
 .hero-kicker {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.2rem 0.55rem;
+  gap: 0.4rem;
+  padding: 0.18rem 0.5rem;
   border: 1px solid var(--ryoku-line);
   border-radius: var(--ryoku-radius);
   background: rgba(205, 196, 186, 0.04);
   color: var(--ryoku-ink-dim);
   font-family: var(--ryoku-font-mono);
-  font-size: 0.64rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -310,70 +370,68 @@ html {
 .hero-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.9rem;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
 }
 
 .hero-meta span {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  padding: 0.2rem 0.5rem;
+  padding: 0.18rem 0.48rem;
   border: 1px solid var(--ryoku-line);
   border-radius: var(--ryoku-radius);
-  background: rgba(205, 196, 186, 0.04);
+  background: rgba(205, 196, 186, 0.03);
   color: var(--ryoku-ink-dim);
   font-family: var(--ryoku-font-mono);
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   font-weight: 500;
 }
 
 /* ==========================================================================
-   Step Indicators (Ryoku Precision Stamp Badge)
+   Step Badges & Navigation Cards (Ryoku Precision Stamp & Grid)
    ========================================================================== */
 
 .step-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border-radius: 2px;
   background: var(--ryoku-sun);
   color: #ffffff !important;
   font-family: var(--ryoku-font-mono);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  margin-right: 0.5rem;
+  margin-right: 0.45rem;
   vertical-align: 1px;
 }
 
-/* Card Grid (Sharp, Minimalist Architecture) */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 0.75rem;
-  margin: 1.1rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.65rem;
+  margin: 0.9rem 0;
 }
 
 .doc-card {
-  padding: 0.95rem 1.1rem;
+  padding: 0.85rem 1rem;
   border: 1px solid var(--ryoku-line);
   border-radius: var(--ryoku-radius);
   background: var(--ryoku-paper-card);
-  transition: border-color 0.12s ease, transform 0.12s ease;
+  transition: border-color 0.12s ease;
   display: flex;
   flex-direction: column;
 }
 
 .doc-card:hover {
   border-color: var(--ryoku-line-strong);
-  transform: translateY(-1px);
 }
 
 .doc-card h3 {
-  margin: 0.15rem 0 0.3rem !important;
-  font-size: 0.92rem !important;
+  margin: 0.15rem 0 0.25rem !important;
+  font-size: 0.86rem !important;
   font-weight: 650;
 }
 
@@ -382,32 +440,32 @@ html {
 }
 
 .doc-card p {
-  margin: 0;
-  color: var(--ryoku-ink-dim);
-  font-size: 0.79rem;
-  line-height: 1.5;
+  margin: 0 !important;
+  color: var(--ryoku-ink-dim) !important;
+  font-size: 0.76rem !important;
+  line-height: 1.45 !important;
 }
 
 .doc-card .card-index {
   color: var(--ryoku-sun);
   font-family: var(--ryoku-font-mono);
-  font-size: 0.64rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-size: 0.60rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 /* ==========================================================================
-   Code Blocks & Syntax Highlighting (Ryoku Terminal Aesthetic)
+   Code Blocks & Highlighting (Ryoku Dark Carbon Terminal)
    ========================================================================== */
 
-/* Inline code badge */
+/* Inline code snippet */
 .md-typeset :not(pre) > code {
   font-family: var(--ryoku-font-mono) !important;
-  font-size: 0.81em;
-  padding: 0.14em 0.42em;
-  border-radius: 2px;
-  font-weight: 500;
+  font-size: 0.78em !important;
+  padding: 0.12em 0.38em !important;
+  border-radius: 2px !important;
+  font-weight: 500 !important;
   letter-spacing: -0.01em;
   white-space: break-spaces;
 }
@@ -426,18 +484,18 @@ html {
 
 /* Code block pre container */
 .md-typeset pre {
-  margin: 0.8em 0 1.1em !important;
+  margin: 0.7em 0 0.9em !important;
   border-radius: var(--ryoku-radius) !important;
   border: 1px solid var(--ryoku-line) !important;
   background-color: var(--ryoku-paper-raised) !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
 }
 
 .md-typeset pre > code {
   font-family: var(--ryoku-font-mono) !important;
-  font-size: 0.79rem !important;
-  line-height: 1.62;
-  padding: 0.85rem 1.15rem;
+  font-size: 0.76rem !important;
+  line-height: 1.56 !important;
+  padding: 0.75rem 1rem !important;
 }
 
 /* Syntax Token Colors (Dark Mode) */
@@ -446,7 +504,7 @@ html {
 [data-md-color-scheme="slate"] .highlight .kn,
 [data-md-color-scheme="slate"] .highlight .kp,
 [data-md-color-scheme="slate"] .highlight .kr {
-  color: #ff6b61 !important; /* Cinnabar Accent for Keywords */
+  color: #ff6b61 !important; /* Cinnabar Red */
   font-weight: 600;
 }
 
@@ -457,7 +515,7 @@ html {
 [data-md-color-scheme="slate"] .highlight .sh,
 [data-md-color-scheme="slate"] .highlight .sr,
 [data-md-color-scheme="slate"] .highlight .cpf {
-  color: #8be9a8 !important; /* Jade Green for Strings */
+  color: #8be9a8 !important; /* Jade Green */
 }
 
 [data-md-color-scheme="slate"] .highlight .m,
@@ -467,25 +525,25 @@ html {
 [data-md-color-scheme="slate"] .highlight .mi,
 [data-md-color-scheme="slate"] .highlight .mo,
 [data-md-color-scheme="slate"] .highlight .il {
-  color: #e59344 !important; /* Warm Amber for Numbers */
+  color: #e59344 !important; /* Amber */
 }
 
 [data-md-color-scheme="slate"] .highlight .nf,
 [data-md-color-scheme="slate"] .highlight .fm {
-  color: #79c0ff !important; /* Ice Blue for Functions */
+  color: #79c0ff !important; /* Ice Blue */
   font-weight: 600;
 }
 
 [data-md-color-scheme="slate"] .highlight .nb,
 [data-md-color-scheme="slate"] .highlight .bp,
 [data-md-color-scheme="slate"] .highlight .no {
-  color: #6daf8c !important; /* Built-in / Cmdlet / Constant */
+  color: #6daf8c !important; /* Mint */
 }
 
 [data-md-color-scheme="slate"] .highlight .nc,
 [data-md-color-scheme="slate"] .highlight .ne,
 [data-md-color-scheme="slate"] .highlight .nn {
-  color: #ffab70 !important; /* Module / Class */
+  color: #ffab70 !important; /* Orange */
   font-weight: 600;
 }
 
@@ -495,7 +553,7 @@ html {
 [data-md-color-scheme="slate"] .highlight .cm,
 [data-md-color-scheme="slate"] .highlight .cp,
 [data-md-color-scheme="slate"] .highlight .cs {
-  color: #807a73 !important; /* Warm Slate Italic Comments */
+  color: #78736a !important; /* Warm Slate Muted Italic */
   font-style: italic;
 }
 
@@ -509,91 +567,40 @@ html {
 
 [data-md-color-scheme="slate"] .highlight .o,
 [data-md-color-scheme="slate"] .highlight .ow {
-  color: #ff6b61 !important; /* Operators */
+  color: #ff6b61 !important;
 }
 
 [data-md-color-scheme="slate"] .highlight .p {
-  color: #8b949e !important; /* Punctuation */
-}
-
-/* Syntax Token Colors (Light Mode) */
-[data-md-color-scheme="default"] .highlight .k,
-[data-md-color-scheme="default"] .highlight .kd,
-[data-md-color-scheme="default"] .highlight .kn,
-[data-md-color-scheme="default"] .highlight .kp,
-[data-md-color-scheme="default"] .highlight .kr {
-  color: #c92a20 !important;
-  font-weight: 600;
-}
-
-[data-md-color-scheme="default"] .highlight .s,
-[data-md-color-scheme="default"] .highlight .s1,
-[data-md-color-scheme="default"] .highlight .s2,
-[data-md-color-scheme="default"] .highlight .se,
-[data-md-color-scheme="default"] .highlight .sh,
-[data-md-color-scheme="default"] .highlight .sr,
-[data-md-color-scheme="default"] .highlight .cpf {
-  color: #1a6f3b !important;
-}
-
-[data-md-color-scheme="default"] .highlight .m,
-[data-md-color-scheme="default"] .highlight .mb,
-[data-md-color-scheme="default"] .highlight .mf,
-[data-md-color-scheme="default"] .highlight .mh,
-[data-md-color-scheme="default"] .highlight .mi,
-[data-md-color-scheme="default"] .highlight .mo,
-[data-md-color-scheme="default"] .highlight .il {
-  color: #a85200 !important;
-}
-
-[data-md-color-scheme="default"] .highlight .nf,
-[data-md-color-scheme="default"] .highlight .fm {
-  color: #0352a0 !important;
-  font-weight: 600;
-}
-
-[data-md-color-scheme="default"] .highlight .nb,
-[data-md-color-scheme="default"] .highlight .bp,
-[data-md-color-scheme="default"] .highlight .no {
-  color: #1a6f3b !important;
-}
-
-[data-md-color-scheme="default"] .highlight .c,
-[data-md-color-scheme="default"] .highlight .c1,
-[data-md-color-scheme="default"] .highlight .ch,
-[data-md-color-scheme="default"] .highlight .cm,
-[data-md-color-scheme="default"] .highlight .cp,
-[data-md-color-scheme="default"] .highlight .cs {
-  color: #797167 !important;
-  font-style: italic;
+  color: #8b949e !important;
 }
 
 /* ==========================================================================
-   Admonitions (Ryoku Precision Technical Callouts)
+   Admonitions (Ryoku Minimal Technical Callouts)
    ========================================================================== */
 
 .md-typeset .admonition,
 .md-typeset details {
   border-radius: var(--ryoku-radius) !important;
-  border-width: 1px 1px 1px 3px !important;
+  border-width: 1px 1px 1px 2px !important;
   border-style: solid !important;
   box-shadow: none !important;
-  font-size: 0.81rem;
-  margin: 0.9em 0 !important;
-  padding: 0.65rem 0.95rem !important;
+  font-size: 0.79rem !important;
+  margin: 0.8em 0 !important;
+  padding: 0.55rem 0.85rem !important;
   background-color: var(--ryoku-paper-raised) !important;
 }
 
 .md-typeset .admonition-title,
 .md-typeset summary {
-  font-family: var(--ryoku-font-sans) !important;
-  font-weight: 700 !important;
-  font-size: 0.83rem !important;
-  letter-spacing: -0.01em;
-  margin: 0 0 0.35rem 0 !important;
+  font-family: var(--ryoku-font-mono) !important;
+  font-weight: 600 !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 0.3rem 0 !important;
 }
 
-/* Danger / Critical: Cinnabar Red */
+/* Danger / Critical: Cinnabar */
 .md-typeset .admonition.danger {
   border-color: var(--ryoku-line) !important;
   border-left-color: var(--ryoku-sun) !important;
@@ -601,11 +608,8 @@ html {
 .md-typeset .admonition.danger > .admonition-title {
   color: #ff6b61 !important;
 }
-[data-md-color-scheme="default"] .md-typeset .admonition.danger > .admonition-title {
-  color: #c92a20 !important;
-}
 
-/* Warning: Warm Amber */
+/* Warning: Amber */
 .md-typeset .admonition.warning {
   border-color: var(--ryoku-line) !important;
   border-left-color: var(--ryoku-amber) !important;
@@ -614,7 +618,7 @@ html {
   color: var(--ryoku-amber) !important;
 }
 
-/* Tip: Jade Green */
+/* Tip: Jade */
 .md-typeset .admonition.tip {
   border-color: var(--ryoku-line) !important;
   border-left-color: var(--ryoku-jade) !important;
@@ -623,7 +627,7 @@ html {
   color: var(--ryoku-jade) !important;
 }
 
-/* Note / Info / Important: Steel Blue */
+/* Note / Info: Steel Blue */
 .md-typeset .admonition.note,
 .md-typeset .admonition.important,
 .md-typeset .admonition.info {
@@ -636,11 +640,11 @@ html {
   color: var(--ryoku-steel) !important;
 }
 
-/* Keyboard Shortcut Badges */
+/* Keyboard keys */
 .md-typeset kbd {
   font-family: var(--ryoku-font-mono) !important;
-  font-size: 0.74em;
-  padding: 0.12em 0.42em;
+  font-size: 0.72em;
+  padding: 0.1em 0.4em;
   border-radius: 2px;
   background: var(--ryoku-paper-raised);
   border: 1px solid var(--ryoku-line);
@@ -648,40 +652,40 @@ html {
   box-shadow: none;
 }
 
-/* Tables (Technical Clean Grid) */
+/* Tables */
 .md-typeset table:not([class]) {
   border: 1px solid var(--ryoku-line);
   border-radius: var(--ryoku-radius);
   overflow: hidden;
-  font-size: 0.80rem;
-  margin: 1em 0;
+  font-size: 0.78rem;
+  margin: 0.85em 0;
 }
 
 .md-typeset table:not([class]) th {
   background: rgba(205, 196, 186, 0.05);
   font-family: var(--ryoku-font-mono);
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 600;
-  padding: 0.5rem 0.8rem;
+  padding: 0.45rem 0.75rem;
   border-bottom: 1px solid var(--ryoku-line);
 }
 
 .md-typeset table:not([class]) td {
-  padding: 0.55rem 0.8rem;
+  padding: 0.48rem 0.75rem;
   border-bottom: 1px solid var(--ryoku-line-soft);
 }
 
 /* Buttons */
 .md-button {
   font-family: var(--ryoku-font-sans);
-  font-size: 0.78rem !important;
+  font-size: 0.74rem !important;
   font-weight: 600;
   letter-spacing: 0.04em;
   border-radius: var(--ryoku-radius) !important;
-  padding: 0.45em 1em !important;
-  transition: all 0.12s ease;
+  padding: 0.38em 0.9em !important;
+  transition: all 0.1s ease;
 }
 
 .md-button--primary {
@@ -708,7 +712,7 @@ html {
 
 @media (max-width: 768px) {
   .hero-panel {
-    padding: 1.1rem 1.15rem;
+    padding: 1rem 1rem;
   }
   .card-grid {
     grid-template-columns: 1fr;

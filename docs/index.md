@@ -17,11 +17,11 @@ Follow this straight-forward guide to get everything running in minutes.
 
 ---
 
-## ⚡ Fast-Track Installation (Step-by-Step)
+## Fast-Track Installation
 
 Open **PowerShell** as administrator or regular user and follow each step in order:
 
-### <span class="step-badge">1</span> Install Python 3.14.10 (x64)
+### <span class="step-badge">01</span> Install Python 3.14.10 (x64)
 
 Download and run the official 64-bit Python installer:
 
@@ -38,7 +38,7 @@ python --version
 
 ---
 
-### <span class="step-badge">2</span> Install VapourSynth
+### <span class="step-badge">02</span> Install VapourSynth
 
 Install the modern VapourSynth core directly through `pip`:
 
@@ -48,7 +48,7 @@ pip install VapourSynth
 
 ---
 
-### <span class="step-badge">3</span> Install JET Pack with NVIDIA Support
+### <span class="step-badge">03</span> Install JET Pack with NVIDIA Support
 
 Install the complete filtering toolkit along with NVIDIA TensorRT, CUDA runtime, and MLRT dependencies:
 
@@ -63,7 +63,7 @@ pip install vsjetpack[full,nvidia] `
 
 ---
 
-### <span class="step-badge">4</span> Initialize VapourSynth Core
+### <span class="step-badge">04</span> Initialize VapourSynth Core
 
 Run the configuration command to register VapourSynth in your system:
 
@@ -76,7 +76,7 @@ vapoursynth config
 
 ---
 
-### <span class="step-badge">5</span> Install Script Previewer & Repository CLI
+### <span class="step-badge">05</span> Install Script Previewer & Repository CLI
 
 Install **VSView** (lightweight graphical `.vpy` script previewer) and **VSRepo**:
 
@@ -86,7 +86,7 @@ pip install vsview vsrepo --extra-index-url https://jaded-encoding-thaumaturgy.g
 
 ---
 
-### <span class="step-badge">6</span> Verify Plugin Directory & VSPipe
+### <span class="step-badge">06</span> Verify Plugin Directory & VSPipe
 
 Check where VapourSynth looks for native DLL plugins, and verify the CLI pipeline tool:
 
@@ -106,7 +106,7 @@ API R4.3
 
 ---
 
-### <span class="step-badge">7</span> Verify GPU Runtimes
+### <span class="step-badge">07</span> Verify GPU Runtimes
 
 Run this one-liner to verify that TensorRT, TensorRT RTX, ONNX Runtime (ORT), and BestSource (BS) are all active:
 
@@ -125,7 +125,7 @@ BS: True
 
 ---
 
-### <span class="step-badge">8</span> Clean Up Incompatible API 3 Plugins
+### <span class="step-badge">08</span> Clean Up Incompatible API 3 Plugins
 
 !!! warning "Fixing 'Plugin uses API 3, which is no longer supported'"
     If running step 7 printed warnings about API 3 plugins (e.g. `bilateralgpu.dll`, `bm3dcuda.dll`), delete their leftover legacy DLL folders from your Python site-packages:
@@ -146,7 +146,7 @@ Rerun the check from **Step 7** to ensure clean, warning-free output.
 
 ---
 
-### <span class="step-badge">9</span> Download & Place AI Models
+### <span class="step-badge">09</span> Download & Place AI Models
 
 1. Download the official model archive:
    [:material-download: **models.v15.16.7z (AmusementClub vs-mlrt)**](https://github.com/AmusementClub/vs-mlrt/releases/download/v15.16/models.v15.16.7z){ .md-button }
@@ -269,7 +269,7 @@ vspipe -c y4m test.vpy - | ffmpeg -i - -c:v hevc_nvenc -preset p7 -cq 18 output_
 
 ---
 
-## 📚 Deep Dive Guides
+## Deep Dive Guides
 
 <div class="card-grid">
   <div class="doc-card">
