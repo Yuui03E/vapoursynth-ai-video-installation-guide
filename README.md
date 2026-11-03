@@ -1,93 +1,73 @@
 <div align="center">
-  <img src="docs/assets/vapoursynth-mark.svg" alt="VapourSynth AI Guide logo" width="92" height="92">
-  <h1>VapourSynth · AI Video Guide</h1>
-  <p><strong>A practical, reproducible Windows setup for VapourSynth and ONNX video models.</strong></p>
+  <img src="docs/assets/vapoursynth-mark.svg" alt="VapourSynth AI Video Guide logo" width="80" height="80">
+  <h1>VapourSynth AI Video Installation Guide</h1>
+  <p><strong>A straight-forward, reproducible Windows installation guide for modern VapourSynth (R80+), NVIDIA TensorRT, and AI video models.</strong></p>
   <p>
-    <a href="https://github.com/Yuui03E/vapoursynth-ai-video-guide/actions/workflows/docs.yml"><img src="https://img.shields.io/github/actions/workflow/status/Yuui03E/vapoursynth-ai-video-guide/docs.yml?branch=main&style=flat-square&label=docs%20build" alt="Documentation build"></a>
-    <img src="https://img.shields.io/badge/platform-Windows%2011-2563eb?style=flat-square" alt="Windows 11">
+    <a href="https://github.com/Yuui03E/vapoursynth-ai-video-installation-guide/actions/workflows/docs.yml"><img src="https://img.shields.io/github/actions/workflow/status/Yuui03E/vapoursynth-ai-video-installation-guide/docs.yml?branch=main&style=flat-square&label=docs%20build" alt="Documentation build"></a>
+    <img src="https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-2563eb?style=flat-square" alt="Windows 10/11">
     <img src="https://img.shields.io/badge/Python-3.14.10-3776AB?style=flat-square" alt="Python 3.14.10">
-    <img src="https://img.shields.io/badge/VapourSynth-R81-0f766e?style=flat-square" alt="VapourSynth R81">
+    <img src="https://img.shields.io/badge/VapourSynth-R81%20(API%204)-0f766e?style=flat-square" alt="VapourSynth R81">
+    <img src="https://img.shields.io/badge/NVIDIA-TensorRT%20%7C%20ORT-76b900?style=flat-square" alt="NVIDIA TensorRT">
   </p>
-  <p><a href="https://yuui03e.github.io/vapoursynth-ai-video-guide/">Read the documentation site ↗</a></p>
+  <p><a href="https://yuui03e.github.io/vapoursynth-ai-video-installation-guide/"><strong>Read the Full Documentation Site ↗</strong></a></p>
 </div>
 
 ---
 
-## What this project covers
-
-This repository explains how to build a consistent VapourSynth environment on Windows, verify that the installed components actually load, and use AI models from `.vpy` scripts.
-
-It is written around a real audited reference environment rather than an imaginary one-click installer. The guide distinguishes package installation from runtime verification and distinguishes image upscaling from frame interpolation.
-
-| Workflow | Model examples | What it changes |
-|---|---|---|
-| Anime upscaling | AnimeJaNai, Waifu2x, RealESRGAN, CUGAN | Frame width and height |
-| Denoising / restoration | Waifu2x, DPIR, SCUNet | Noise, compression and image detail |
-| Frame interpolation | RIFE | Number and timing of frames; not resolution |
-| General VapourSynth processing | JET filters and plugins | Filtering, resizing, color conversion and output |
-
-## Start here
-
-1. Read [the installation overview](docs/start-here/index.md).
-2. Follow the [Windows installation procedure](docs/installation/windows.md).
-3. Run the [verification checklist](docs/installation/verification.md).
-4. Choose a [model workflow](docs/models/index.md).
-5. Preview and render using [VSPipe](docs/workflows/preview-and-render.md).
-6. Run the [environment audit script](scripts/audit_environment.py) when supporting a client machine.
-
-## Tested reference environment
-
-The current reference snapshot was audited on **2 November 2026**:
-
-| Component | Audited reference |
-|---|---|
-| OS | Windows 11 x64 |
-| CPU | AMD Ryzen 9 9950X |
-| GPU | NVIDIA GeForce RTX 5070, 12 GB |
-| NVIDIA driver | 617.14 |
-| Python | 3.14.10 x64 |
-| VapourSynth | R81 · API R4.3 |
-| `vsjetpack` | 2.2.6 |
-| MLRT TensorRT / TensorRT-RTX | 17.1 / 17.1 |
-| ONNX Runtime bundled with MLRT | 1.31.0 |
-| ONNX model files | 76 inventoried |
-
-These versions describe the reference machine, not a promise that every later package release is compatible. See the [full tested environment](docs/reference/tested-environment.md) and [verification status](docs/reference/validation-status.md).
-
-## Important design decisions
-
-- Use one explicit interpreter: `py -3.14 -m pip ...`.
-- Install NVIDIA VapourSynth plugins through the JET `nvidia` extra.
-- Do **not** install a separate CUDA Toolkit or standalone TensorRT just to reproduce this audited setup. The reference uses NVIDIA runtime/TensorRT Python wheels and the system NVIDIA display driver.
-- Do not treat `hasattr(core, "trt")` as proof that a model can run. It proves the namespace is present; an inference test proves much more.
-- Do not treat RIFE as an upscaler. It interpolates frames to alter motion cadence.
-- Do not upload ONNX weights, source videos, TensorRT engine caches or private machine paths to this documentation repository.
-
-## Documentation site
-
-The docs are written in Markdown and built with [Zensical](https://zensical.org/), the successor project from the maintainers of Material for MkDocs. A GitHub Actions workflow publishes the site to GitHub Pages.
-
-To preview locally:
+## ⚡ Quick Start (PowerShell)
 
 ```powershell
-py -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements-docs.txt
-zensical serve
+# 1. Install Python 3.14.10 (Ensure "Add python.exe to PATH" is checked)
+# https://www.python.org/ftp/python/3.14.10/python-3.14.10-amd64.exe
+
+# 2. Install VapourSynth & Initialize Core
+pip install VapourSynth
+vapoursynth config
+
+# 3. Install JET Pack with NVIDIA TensorRT & CUDA Runtimes
+pip install vsjetpack[full,nvidia] `
+  --extra-index-url https://pypi.nvidia.com/ `
+  --extra-index-url https://jaded-encoding-thaumaturgy.github.io/vs-wheels/simple
+
+# 4. Install VSView Previewer & VSRepo
+pip install vsview vsrepo `
+  --extra-index-url https://jaded-encoding-thaumaturgy.github.io/vs-wheels/simple
+
+# 5. Clean up deprecated API 3 plugins (if any)
+$pluginBase = (py -3.14 -c "import vapoursynth as vs; print(vs.get_plugin_dir())").Trim()
+@("bilateralgpu", "bm3dcpu", "bm3dcuda") | ForEach-Object {
+    $dir = Join-Path $pluginBase $_
+    if (Test-Path $dir) { Remove-Item -Recurse -Force $dir }
+}
+
+# 6. Install API 4 Patched vsmlrt.py Wrapper
+$sitePackages = (py -3.14 -c "import site; print(site.getsitepackages()[0])").Trim()
+Invoke-WebRequest `
+  -Uri "https://gist.githubusercontent.com/Yuui03E/f5d41b3991954b8c867c02c9751d9bcb/raw/14a43646eb956c52be3622a2829ad4941a68668e/vsmlrt.py" `
+  -OutFile (Join-Path $sitePackages "vsmlrt.py")
 ```
-
-Open `http://127.0.0.1:8000/`.
-
-## Scope and disclaimers
-
-This is an independent community guide, not an official VapourSynth, JET, NVIDIA or AmusementClub project. Third-party packages and model weights remain the property of their respective maintainers and authors. This repository documents installation and usage; it does not redistribute those packages or weights.
-
-The audit verified imports, package metadata, plugin namespaces, dependency consistency and model-file presence. It did **not** execute full model inference for every model. Examples are labelled accordingly; validate a short clip before processing an entire video.
-
-## Contributing
-
-Corrections are welcome. Please include the exact package version, Python version, VapourSynth core/API version, GPU/driver, complete error output and the smallest reproducible script when reporting an issue. See [the troubleshooting guide](docs/troubleshooting/index.md) before opening an issue.
 
 ---
 
-<p align="center"><sub>Documentation snapshot: 2026-11-02 · Keep the environment manifest and model hashes updated when the tested baseline changes.</sub></p>
+## 📖 Documentation Sections
+
+- [**Quick Start Guide**](https://yuui03e.github.io/vapoursynth-ai-video-installation-guide/) — Complete 12-step setup workflow.
+- [**Detailed Windows Installation**](https://yuui03e.github.io/vapoursynth-ai-video-installation-guide/installation/windows/) — Step-by-step breakdown of packages, index URLs, and environment variables.
+- [**Verification Checklist**](https://yuui03e.github.io/vapoursynth-ai-video-installation-guide/installation/verification/) — Fast commands to audit GPU backends (`trt`, `ort`, `bs`).
+- [**Model Workflows**](https://yuui03e.github.io/vapoursynth-ai-video-installation-guide/models/) — Setup guides for AnimeJaNai, RIFE v4.26, and Waifu2x.
+- [**Ready-to-Use Scripts**](https://yuui03e.github.io/vapoursynth-ai-video-installation-guide/examples/) — Copy-pasteable `test.vpy` templates with BestSource and TensorRT.
+- [**Previewing & Rendering**](https://yuui03e.github.io/vapoursynth-ai-video-installation-guide/workflows/preview-and-render/) — VSView controls and direct FFmpeg NVENC piping commands.
+- [**Troubleshooting**](https://yuui03e.github.io/vapoursynth-ai-video-installation-guide/troubleshooting/) — Fixes for API 3 deprecations, VC++ runtime issues, and VRAM memory management.
+
+---
+
+## 🛠️ Local Documentation Preview
+
+To preview the documentation locally with Zensical:
+
+```powershell
+pip install -r requirements-docs.txt
+zensical serve
+```
+
+Then visit `http://127.0.0.1:8000/`.

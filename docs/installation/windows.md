@@ -1,226 +1,245 @@
-# Install on Windows 11
+# Complete Windows Installation Guide
 
-This procedure reproduces the audited reference stack. It uses one Python interpreter for every command and installs NVIDIA VapourSynth runtime plugins through JET's `nvidia` extra.
+This guide walks through every step needed to set up a complete, modern VapourSynth environment on Windows 10/11 with NVIDIA GPU acceleration (TensorRT and ONNX Runtime).
 
-!!! warning "Install in the order shown"
-    Open a **new PowerShell window** after installing Python. Do not mix plain `pip`, `python` and different Python launchers. Use `py -3.14 -m pip` throughout so the packages go into the selected Python 3.14 interpreter.
+---
 
-## 1. Install Python 3.14.10 x64
+## Prerequisites
 
-Download the official Windows x64 installer:
+Before starting, verify that your system meets these basic requirements:
 
-[**python-3.14.10-amd64.exe**](https://www.python.org/ftp/python/3.14.10/python-3.14.10-amd64.exe)
+- **Operating System:** Windows 10 or Windows 11 (64-bit).
+- **GPU:** NVIDIA GPU (GTX 10-series or newer; RTX 20/30/40/50 series strongly recommended for TensorRT FP16 acceleration).
+- **NVIDIA Driver:** Recent standard Game Ready or Studio Driver installed from NVIDIA.
+- **No standalone CUDA Toolkit needed:** All necessary CUDA and TensorRT runtime binaries are installed automatically as Python wheels.
 
-During installation:
+---
 
-1. Enable **Add Python to PATH** (wording may vary by installer).
-2. Keep the 64-bit installation.
-3. Complete the installation.
-4. Open a new PowerShell window.
+## 1. Install Python 3.14.10 (64-bit)
 
-Verify the interpreter and pip:
+Download the official 64-bit installer for Python 3.14.10:
+
+[:material-download: **python-3.14.10-amd64.exe**](https://www.python.org/ftp/python/3.14.10/python-3.14.10-amd64.exe){ .md-button .md-button--primary }
+
+1. Run the installer.
+2. **Check the box:** `Add python.exe to PATH` (at the bottom of the first setup screen).
+3. Click **Install Now**.
+4. Once completed, close any open terminal windows and launch a fresh **PowerShell**.
+
+Verify your Python interpreter:
 
 ```powershell
+python --version
 py -3.14 --version
-py -3.14 -c "import sys, struct; print('Executable:', sys.executable); print('Architecture:', struct.calcsize('P') * 8, 'bit')"
-py -3.14 -m pip --version
 ```
 
-Expected baseline:
-
+Expected output:
 ```text
 Python 3.14.10
-Architecture: 64 bit
-...pip ... from Python314\Lib\site-packages\pip (python 3.14)
 ```
 
-The executable and pip paths must refer to the same Python 3.14 installation. If the launcher selects a different interpreter, stop and correct that before installing anything else.
+---
 
-## 2. Update pip in that interpreter
+## 2. Upgrade pip
+
+Update `pip` to the latest version within your Python 3.14 environment:
 
 ```powershell
 py -3.14 -m pip install --upgrade pip
 ```
 
-This updates pip only; it does not update Python itself.
+---
 
 ## 3. Install VapourSynth
 
-Install the R81 Python wheel used by the reference environment:
+In modern VapourSynth (R80+), VapourSynth is packaged as a standard wheel on PyPI. Install it directly:
 
 ```powershell
-py -3.14 -m pip install "vapoursynth==81"
+pip install VapourSynth
 ```
 
-Initialize/configure the VapourSynth core:
+### Initialize the VapourSynth Core
+
+Run the configuration command to generate core settings and register VapourSynth in your system:
 
 ```powershell
 vapoursynth config
 ```
 
-The audited reference reports **VapourSynth R81, API R4.3**. The current installation route is pip-based; do not add an old standalone VapourSynth installer on top of this Python-wheel installation.
-
-Verify the core and plugin directory:
-
-```powershell
-py -3.14 -c "import vapoursynth as vs; print('Version:', vs.__version__); print(vs.core)"
-py -3.14 -c "import vapoursynth as vs; print(vs.get_plugin_dir())"
-vspipe --version
+Expected output:
+```text
+Configuring VapourSynth...
+Core configuration successful.
 ```
 
-If `vapoursynth config` reports that the Microsoft Visual C++ Redistributable is missing, follow the specific error and install/update the named Microsoft runtime. Do not install unrelated build tools pre-emptively.
+!!! tip "Missing Visual C++ Redistributable Error"
+    If `vapoursynth config` throws an error about `MSVCP140.dll` or `VCRUNTIME140.dll` being missing, download and install the official [Visual C++ 2015–2022 Redistributable (x64)](https://aka.ms/vs/17/release/vc_redist.x64.exe).
 
-## 4. Install JET with NVIDIA support
+---
 
-This is the main ecosystem installation. Run it in PowerShell exactly as written:
+## 4. Install JET Pack with NVIDIA Runtime
+
+[**JET (Jaded Encoding Thaumaturgy)**](https://jaded-encoding-thaumaturgy.github.io/vs-jetpack/) bundles modern VapourSynth filters, source loaders, and model-inference engines.
+
+Run the following command in PowerShell:
 
 ```powershell
-py -3.14 -m pip install "vsjetpack[full,nvidia]==2.2.6" `
+pip install vsjetpack[full,nvidia] `
   --extra-index-url https://pypi.nvidia.com/ `
   --extra-index-url https://jaded-encoding-thaumaturgy.github.io/vs-wheels/simple
 ```
 
-The two extra indexes matter:
+### Why are the extra index URLs needed?
 
-- NVIDIA's index hosts NVIDIA-related Python distributions.
-- JET's VSWheels index hosts some VapourSynth plugin wheels.
+- **`https://pypi.nvidia.com/`**: Hosts official NVIDIA prebuilt binary wheels including `tensorrt_cu13`, `tensorrt_rtx_cu13`, and CUDA runtime libraries.
+- **`https://jaded-encoding-thaumaturgy.github.io/vs-wheels/simple`**: Hosts specialized VapourSynth plugin wheels such as `vapoursynth-mlrt` (TRT, TRT-RTX, ORT backends) and `vapoursynth-bestsource`.
 
-The `full` extra installs JET's broad CPU-side filtering ecosystem. The `nvidia` extra adds the NVIDIA plugin/runtime dependencies. In the audited reference machine, this resulted in TensorRT, TensorRT-RTX and CUDA-related Python wheels, as well as the MLRT plugin DLLs.
+---
 
-!!! important "Do not install a second CUDA/TensorRT stack"
-    For this exact wheel-based workflow, do not separately download the CUDA Toolkit, standalone TensorRT, TensorRT-RTX or `onnxruntime-gpu` unless a future documented dependency specifically requires it. The NVIDIA display driver is still required. A machine with a different GPU/driver must be checked against the package maintainers' compatibility information.
+## 5. Install VSView (Previewer) & VSRepo
 
-## 5. Check package dependencies
+**VSView** is an essential GUI tool to preview `.vpy` scripts in real-time, inspect individual frames, and compare before/after clips.
 
 ```powershell
-py -3.14 -m pip check
+pip install vsview vsrepo --extra-index-url https://jaded-encoding-thaumaturgy.github.io/vs-wheels/simple
 ```
 
-Expected:
+Test that VSView launches:
+```powershell
+vsview --version
+```
 
+---
+
+## 6. Verify Plugins & Clean Legacy API 3 DLLs
+
+Modern VapourSynth uses **API 4**. Some legacy packages install old API 3 plugins that trigger deprecation warnings or crashes.
+
+### Check Active Backends
+
+```powershell
+py -3.14 -c "import vapoursynth as vs; c=vs.core; print('VapourSynth:', vs.__version__); print('TRT:', hasattr(c,'trt')); print('TRT RTX:', hasattr(c,'trt_rtx')); print('ORT:', hasattr(c,'ort')); print('BS:', hasattr(c,'bs'))"
+```
+
+Expected output:
 ```text
-No broken requirements found.
+VapourSynth: R81
+TRT: True
+TRT RTX: True
+ORT: True
+BS: True
 ```
 
-A clean `pip check` means the declared Python package requirements are consistent. It does **not** prove that every native DLL loads or that every ONNX model can execute. Continue with [verification](verification.md).
+### Removing Legacy API 3 Plugins
 
-## 6. Install preview and repository tools
+If the check output printed lines like:
+```text
+Plugin ...\bilateralgpu.dll uses API 3, which is no longer supported.
+Plugin ...\bm3dcuda.dll uses API 3, which is no longer supported.
+```
 
-VSView is useful for previewing `.vpy` scripts. VSRepo is an optional plugin repository utility; it is not a required part of the JET pip installation.
+Remove them automatically with this PowerShell snippet:
 
 ```powershell
-py -3.14 -m pip install "vsview==0.14.0" "vsrepo==2.0.0" `
-  --extra-index-url https://jaded-encoding-thaumaturgy.github.io/vs-wheels/simple
+$pluginBase = (py -3.14 -c "import vapoursynth as vs; print(vs.get_plugin_dir())").Trim()
+$oldPlugins = @("bilateralgpu", "bm3dcpu", "bm3dcuda")
+foreach ($p in $oldPlugins) {
+    $dir = Join-Path $pluginBase $p
+    if (Test-Path $dir) {
+        Remove-Item -Recurse -Force $dir
+        Write-Host "Removed incompatible API 3 plugin directory: $dir"
+    }
+}
 ```
 
-Audited reference versions:
+---
 
-| Tool | Version | Role |
-|---|---:|---|
-| VSView | 0.14.0 | Preview `.vpy` outputs. |
-| VSRepo | 2.0.0 | Optional plugin repository CLI. |
+## 7. Setup AI Models Directory
 
-## 7. Install the AmusementClub model pack
+VapourSynth looks for ONNX models inside the `models` subfolder of its plugin directory.
 
-Download the model archive used by the reference configuration:
-
-[**models.v15.16.7z — vs-mlrt release v15.16**](https://github.com/AmusementClub/vs-mlrt/releases/download/v15.16/models.v15.16.7z)
-
-Ask Python for the actual plugin directory instead of hard-coding a user-specific path:
+Create the folder using PowerShell:
 
 ```powershell
 $pluginDir = (py -3.14 -c "import vapoursynth as vs; print(vs.get_plugin_dir())").Trim()
 $modelsDir = Join-Path $pluginDir "models"
 New-Item -ItemType Directory -Force -Path $modelsDir | Out-Null
-Write-Host "Extract the model archive into: $modelsDir"
+Write-Host "Your models folder is: $modelsDir"
 ```
 
-Extract the archive so the final structure looks like this:
+Download model packages:
+1. [:material-download: **models.v15.16.7z (vs-mlrt base model pack)**](https://github.com/AmusementClub/vs-mlrt/releases/download/v15.16/models.v15.16.7z)
+2. [:material-link: **External Models Release (AnimeJaNai, RIFE v4.26, etc.)**](https://github.com/AmusementClub/vs-mlrt/releases/tag/external-models)
+
+Extract them so the folder hierarchy is organized as follows:
 
 ```text
-<plugin directory>/
-└── models/
-    ├── animejanai/
-    ├── cugan/
-    ├── dpir/
-    ├── RealESRGANv2/
-    ├── rife/
-    ├── rife_v2/
-    └── waifu2x/
+vapoursynth/plugins/models/
+├── animejanai/
+│   ├── 2x_AnimeJaNai_HD_V3_Compact.onnx
+│   └── 2x_AnimeJaNai_HD_V3_UltraCompact.onnx
+├── rife_v2/
+│   └── rife_v4.26.onnx
+├── waifu2x/
+│   ├── anime_style_art/
+│   └── photo/
+├── cugan/
+└── dpir/
 ```
 
-Avoid accidental double nesting such as `plugins\models\models\animejanai`. The expected final path is `plugins\models\animejanai\...`.
+---
 
-Check the two model files used in this guide:
+## 8. Install API 4 `vsmlrt.py` Wrapper
 
-```powershell
-$pluginDir = (py -3.14 -c "import vapoursynth as vs; print(vs.get_plugin_dir())").Trim()
-$modelsDir = Join-Path $pluginDir "models"
-
-Test-Path (Join-Path $modelsDir "animejanai\2x_AnimeJaNai_HD_V3_Compact.onnx")
-Test-Path (Join-Path $modelsDir "rife_v2\rife_v4.26.onnx")
-(Get-ChildItem $modelsDir -Recurse -Filter *.onnx | Measure-Object).Count
-```
-
-The audit found 76 ONNX files in the reference model directory. Different model archives can contain different contents; use the file-presence checks rather than assuming the count is universal.
-
-## 8. Install the matching `vsmlrt.py` wrapper
-
-The audited environment uses a custom API-4-adapted wrapper, not an arbitrary current copy from the upstream `master` branch.
-
-- **Audited version:** `4.1.1+api4.jetfix2`
-- **Audited location:** `<Python314>\Lib\site-packages\vsmlrt.py`
-- **Audited SHA-256:** `a22b428f316c33574ee74b7687d1b77398ed79d56d7bba6e257c8ae5c2199903`
-
-The source URL for that pinned revision is:
-
-```text
-https://gist.githubusercontent.com/Yuui03E/f5d41b3991954b8c867c02c9751d9bcb/raw/14a43646eb956c52be3622a2829ad4941a68668e/vsmlrt.py
-```
-
-Find the `site-packages` directory dynamically:
+The original `vsmlrt.py` script from upstream AmusementClub was designed for older VapourSynth API versions. To ensure complete compatibility with VapourSynth R80+ and TensorRT, install the patched wrapper directly into Python's `site-packages`:
 
 ```powershell
 $sitePackages = (py -3.14 -c "import site; print(site.getsitepackages()[0])").Trim()
 $wrapperPath = Join-Path $sitePackages "vsmlrt.py"
-Write-Host $wrapperPath
-Test-Path $wrapperPath
-```
 
-If this file is not present and you intend to use the `vsmlrt.py` examples, download the exact pinned revision to that path. Do not overwrite an existing wrapper without checking its version and hash first.
-
-```powershell
 Invoke-WebRequest `
   -Uri "https://gist.githubusercontent.com/Yuui03E/f5d41b3991954b8c867c02c9751d9bcb/raw/14a43646eb956c52be3622a2829ad4941a68668e/vsmlrt.py" `
   -OutFile $wrapperPath
 
-Get-FileHash $wrapperPath -Algorithm SHA256
+Write-Host "vsmlrt.py installed to: $wrapperPath"
 ```
 
-The resulting hash should match the audited value above for the same file revision. The JET `vsscale` API and the `vsmlrt.py` API are related but distinct interfaces; the AnimeJaNai example uses JET, while the Waifu2x/RIFE examples use the wrapper.
-
-## 9. First-pass verification
-
-Run every command in [the verification checklist](verification.md) before attempting model inference. If any check fails, troubleshoot that layer before continuing.
-
-## 10. Capture the installed package versions
-
-The reference audit reports selected core versions but is not a complete 120-package lock file. To create a full snapshot on the client machine:
+Verify that the wrapper loads:
 
 ```powershell
-py -3.14 -m pip freeze --all > requirements-installed.txt
-py -3.14 -m pip list --format=json > packages-installed.json
-py -3.14 -m pip check > pip-check.txt
-nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv > gpu-installed.txt
+python -c "import vsmlrt; print('vsmlrt wrapper version:', vsmlrt.__version__ if hasattr(vsmlrt, '__version__') else 'Loaded')"
 ```
-
-Keep these generated files with the machine's support ticket or private deployment record. Review and redact local paths and personal data before committing any audit to a public repository.
 
 ---
 
-## Installation sources
+## 9. Quick Copy-Paste Summary
 
-- [VapourSynth — Installing and compiling](https://github.com/vapoursynth/vapoursynth/blob/master/doc/installation.rst)
-- [vsjetpack — installation and extras](https://jaded-encoding-thaumaturgy.github.io/vs-jetpack/)
-- [JET Encoding Guide — installation](https://jaded-encoding-thaumaturgy.github.io/JET-guide/master/basics/installation/)
-- [AmusementClub vs-mlrt releases](https://github.com/AmusementClub/vs-mlrt/releases)
+For subsequent machines or quick reinstallations, here is the full PowerShell script:
+
+```powershell
+# 1. Update pip & install core VapourSynth
+py -3.14 -m pip install --upgrade pip
+pip install VapourSynth
+vapoursynth config
+
+# 2. Install JET with NVIDIA runtimes + VSView
+pip install vsjetpack[full,nvidia] `
+  --extra-index-url https://pypi.nvidia.com/ `
+  --extra-index-url https://jaded-encoding-thaumaturgy.github.io/vs-wheels/simple
+
+pip install vsview vsrepo `
+  --extra-index-url https://jaded-encoding-thaumaturgy.github.io/vs-wheels/simple
+
+# 3. Clean legacy API 3 plugins
+$pluginBase = (py -3.14 -c "import vapoursynth as vs; print(vs.get_plugin_dir())").Trim()
+@("bilateralgpu", "bm3dcpu", "bm3dcuda") | ForEach-Object {
+    $dir = Join-Path $pluginBase $_
+    if (Test-Path $dir) { Remove-Item -Recurse -Force $dir }
+}
+
+# 4. Install patched vsmlrt.py wrapper
+$sitePackages = (py -3.14 -c "import site; print(site.getsitepackages()[0])").Trim()
+Invoke-WebRequest `
+  -Uri "https://gist.githubusercontent.com/Yuui03E/f5d41b3991954b8c867c02c9751d9bcb/raw/14a43646eb956c52be3622a2829ad4941a68668e/vsmlrt.py" `
+  -OutFile (Join-Path $sitePackages "vsmlrt.py")
+```

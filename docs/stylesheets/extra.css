@@ -1,245 +1,613 @@
-/* Brand system: deep graphite, cool blue, teal and restrained violet. */
+/* ==========================================================================
+   VapourSynth AI Video Installation Guide — Stylesheet
+   Modern, compact, high-contrast developer documentation theme
+   ========================================================================== */
+
 :root {
-  --guide-ink: #111827;
-  --guide-muted: #66758b;
-  --guide-blue: #4f8df7;
-  --guide-cyan: #42c9c5;
-  --guide-line: rgba(120, 145, 175, .22);
-  --guide-surface: rgba(130, 160, 195, .065);
-  --guide-radius: 18px;
+  --guide-blue: #3b82f6;
+  --guide-cyan: #06b6d4;
+  --guide-purple: #8b5cf6;
+  --guide-green: #10b981;
+  --guide-amber: #f59e0b;
+  --guide-red: #ef4444;
+  --guide-line: rgba(120, 145, 175, 0.2);
+  --guide-surface: rgba(130, 160, 195, 0.05);
+  --guide-radius: 10px;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
-/* Give the documentation a little more room without making paragraphs too wide. */
-.md-grid { max-width: 1500px; }
+.md-grid {
+  max-width: 1280px;
+}
 
-/* Landing-page hero and content cards. */
+/* ==========================================================================
+   Typography & Heading Hierarchy (Clean, Compact, Not Oversized)
+   ========================================================================== */
+
+.md-typeset {
+  font-size: 0.84rem;
+  line-height: 1.65;
+  letter-spacing: -0.005em;
+}
+
+.md-typeset h1 {
+  font-size: 1.6rem !important;
+  font-weight: 750 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.03em !important;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.md-typeset h2 {
+  font-size: 1.22rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  margin-top: 1.8rem;
+  margin-bottom: 0.55rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--guide-line);
+}
+
+.md-typeset h3 {
+  font-size: 1.02rem !important;
+  font-weight: 650 !important;
+  letter-spacing: -0.012em !important;
+  margin-top: 1.3rem;
+  margin-bottom: 0.4rem;
+}
+
+.md-typeset h4 {
+  font-size: 0.9rem !important;
+  font-weight: 650 !important;
+  margin-top: 1rem;
+}
+
+.md-typeset p {
+  margin-top: 0.55em;
+  margin-bottom: 0.75em;
+}
+
+/* ==========================================================================
+   Hero Panel (Compact & Modern)
+   ========================================================================== */
+
 .hero-panel {
   position: relative;
   overflow: hidden;
-  margin: 1rem 0 2rem;
-  padding: clamp(1.5rem, 4vw, 3rem);
-  border: 1px solid rgba(111, 158, 220, .28);
-  border-radius: 26px;
+  margin: 0.5rem 0 1.5rem;
+  padding: 1.35rem 1.6rem;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 14px;
   background:
-    radial-gradient(circle at 82% 12%, rgba(66, 201, 197, .16), transparent 27rem),
-    radial-gradient(circle at 12% 110%, rgba(79, 141, 247, .20), transparent 30rem),
-    linear-gradient(135deg, #101b2e 0%, #111c30 58%, #102936 100%);
+    radial-gradient(circle at 85% 15%, rgba(6, 182, 212, 0.14), transparent 20rem),
+    radial-gradient(circle at 10% 90%, rgba(59, 130, 246, 0.15), transparent 22rem),
+    linear-gradient(135deg, #0d1522 0%, #101a2b 55%, #0b1f2b 100%);
   color: #eef5ff;
-  box-shadow: 0 24px 64px rgba(3, 10, 22, .22);
+  box-shadow: 0 8px 24px rgba(2, 6, 16, 0.22);
 }
-.hero-panel h1, .hero-panel h2, .hero-panel p { color: inherit; }
+
 .hero-panel h1 {
-  max-width: 850px;
-  margin: .55rem 0 1rem;
-  font-size: clamp(2.1rem, 5vw, 3.65rem);
-  line-height: 1.08;
-  letter-spacing: -.045em;
+  margin: 0.35rem 0 0.4rem !important;
+  font-size: 1.55rem !important;
+  font-weight: 780 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.03em !important;
+  color: #ffffff !important;
 }
+
 .hero-panel .hero-lede {
-  max-width: 760px;
-  color: #c5d3e6;
-  font-size: 1.06rem;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0 0 0.75rem 0;
+  max-width: 820px;
 }
+
 .hero-kicker {
   display: inline-flex;
   align-items: center;
-  gap: .5rem;
-  padding: .38rem .72rem;
-  border: 1px solid rgba(137, 181, 239, .28);
+  gap: 0.4rem;
+  padding: 0.22rem 0.6rem;
+  border: 1px solid rgba(96, 165, 250, 0.35);
   border-radius: 999px;
-  background: rgba(255,255,255,.055);
-  color: #a9d8ff;
-  font-size: .72rem;
+  background: rgba(59, 130, 246, 0.12);
+  color: #93c5fd;
+  font-size: 0.68rem;
   font-weight: 750;
-  letter-spacing: .12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+
 .hero-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: .55rem;
-  margin-top: 1.35rem;
+  gap: 0.4rem;
+  margin-top: 0.85rem;
 }
+
 .hero-meta span {
-  padding: .35rem .65rem;
-  border: 1px solid rgba(200,220,245,.16);
-  border-radius: 8px;
-  background: rgba(255,255,255,.055);
-  color: #d9e6f6;
-  font-size: .78rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Step Indicators & Badges
+   ========================================================================== */
+
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #ffffff !important;
+  font-size: 0.72rem;
+  font-weight: 750;
+  margin-right: 0.4rem;
+  vertical-align: middle;
+  box-shadow: 0 2px 5px rgba(37, 99, 235, 0.35);
 }
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  margin: 1.25rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
 }
+
 .doc-card {
-  min-height: 150px;
-  padding: 1.2rem 1.25rem;
+  padding: 0.95rem 1.1rem;
   border: 1px solid var(--guide-line);
   border-radius: var(--guide-radius);
   background: var(--guide-surface);
-  transition: transform .18s ease, border-color .18s ease, background .18s ease;
-}
-.doc-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(79, 141, 247, .55);
-  background: rgba(79, 141, 247, .075);
-}
-.doc-card h3 { margin: .2rem 0 .55rem; font-size: 1.02rem; }
-.doc-card p { margin: 0; color: var(--guide-muted); font-size: .9rem; }
-.doc-card .card-index {
-  color: var(--guide-blue);
-  font-size: .72rem;
-  font-weight: 800;
-  letter-spacing: .12em;
+  transition: all 0.15s ease;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Compact labels and progress/status treatments. */
+.doc-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(59, 130, 246, 0.5);
+  background: rgba(59, 130, 246, 0.06);
+}
+
+.doc-card h3 {
+  margin: 0.15rem 0 0.3rem !important;
+  font-size: 0.94rem !important;
+}
+
+.doc-card h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.doc-card h3 a:hover {
+  color: var(--guide-blue);
+}
+
+.doc-card p {
+  margin: 0;
+  color: var(--guide-muted, #64748b);
+  font-size: 0.81rem;
+  line-height: 1.48;
+}
+
+.doc-card .card-index {
+  color: var(--guide-blue);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Inline Code & Keyboard Badges (Punchy, High Contrast)
+   ========================================================================== */
+
+.md-typeset :not(pre) > code {
+  font-family: "JetBrains Mono", Consolas, "Fira Code", monospace;
+  font-size: 0.83em;
+  padding: 0.16em 0.44em;
+  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: break-spaces;
+}
+
+[data-md-color-scheme="slate"] .md-typeset :not(pre) > code {
+  background: rgba(56, 139, 253, 0.16) !important;
+  color: #79c0ff !important;
+  border: 1px solid rgba(56, 139, 253, 0.32) !important;
+}
+
+[data-md-color-scheme="default"] .md-typeset :not(pre) > code {
+  background: rgba(9, 105, 218, 0.08) !important;
+  color: #0550ae !important;
+  border: 1px solid rgba(9, 105, 218, 0.22) !important;
+}
+
+/* Keyboard keys */
+.md-typeset kbd {
+  display: inline-block;
+  padding: 0.1em 0.45em;
+  font-size: 0.76em;
+  font-family: inherit;
+  border-radius: 5px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  vertical-align: middle;
+}
+
+[data-md-color-scheme="slate"] .md-typeset kbd {
+  background: #1e2633;
+  color: #f1f5f9;
+  border: 1px solid #334155;
+}
+
+[data-md-color-scheme="default"] .md-typeset kbd {
+  background: #f1f5f9;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+}
+
+/* ==========================================================================
+   Code Blocks & Syntax Highlighting (Rich Developer Palette)
+   ========================================================================== */
+
+.md-typeset pre {
+  margin: 0.75em 0 1em !important;
+  border-radius: 9px !important;
+  border: 1px solid var(--guide-line) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+}
+
+.md-typeset pre > code {
+  font-family: "JetBrains Mono", Consolas, "Fira Code", monospace;
+  font-size: 0.8rem !important;
+  line-height: 1.58;
+  padding: 0.8rem 1.1rem;
+}
+
+/* Dark mode syntax colors (Slate) */
+[data-md-color-scheme="slate"] {
+  --md-code-bg-color: #0f141c;
+  --md-code-fg-color: #e6edf3;
+}
+
+[data-md-color-scheme="slate"] .highlight .k,
+[data-md-color-scheme="slate"] .highlight .kd,
+[data-md-color-scheme="slate"] .highlight .kn,
+[data-md-color-scheme="slate"] .highlight .kp,
+[data-md-color-scheme="slate"] .highlight .kr {
+  color: #ff7b72 !important; /* Keywords: Coral */
+  font-weight: 600;
+}
+
+[data-md-color-scheme="slate"] .highlight .s,
+[data-md-color-scheme="slate"] .highlight .s1,
+[data-md-color-scheme="slate"] .highlight .s2,
+[data-md-color-scheme="slate"] .highlight .se,
+[data-md-color-scheme="slate"] .highlight .sh,
+[data-md-color-scheme="slate"] .highlight .sr,
+[data-md-color-scheme="slate"] .highlight .cpf {
+  color: #a5d6ff !important; /* Strings: Sky Blue */
+}
+
+[data-md-color-scheme="slate"] .highlight .m,
+[data-md-color-scheme="slate"] .highlight .mb,
+[data-md-color-scheme="slate"] .highlight .mf,
+[data-md-color-scheme="slate"] .highlight .mh,
+[data-md-color-scheme="slate"] .highlight .mi,
+[data-md-color-scheme="slate"] .highlight .mo,
+[data-md-color-scheme="slate"] .highlight .il {
+  color: #f2cc60 !important; /* Numbers: Amber */
+}
+
+[data-md-color-scheme="slate"] .highlight .nf,
+[data-md-color-scheme="slate"] .highlight .fm {
+  color: #d2a8ff !important; /* Functions: Purple */
+  font-weight: 600;
+}
+
+[data-md-color-scheme="slate"] .highlight .nb,
+[data-md-color-scheme="slate"] .highlight .bp,
+[data-md-color-scheme="slate"] .highlight .no {
+  color: #7ee787 !important; /* Built-ins/Cmdlets/Constants: Mint */
+}
+
+[data-md-color-scheme="slate"] .highlight .nc,
+[data-md-color-scheme="slate"] .highlight .ne,
+[data-md-color-scheme="slate"] .highlight .nn {
+  color: #ffa657 !important; /* Classes/Modules: Orange */
+  font-weight: 600;
+}
+
+[data-md-color-scheme="slate"] .highlight .c,
+[data-md-color-scheme="slate"] .highlight .c1,
+[data-md-color-scheme="slate"] .highlight .ch,
+[data-md-color-scheme="slate"] .highlight .cm,
+[data-md-color-scheme="slate"] .highlight .cp,
+[data-md-color-scheme="slate"] .highlight .cs {
+  color: #8b949e !important; /* Comments */
+  font-style: italic;
+}
+
+[data-md-color-scheme="slate"] .highlight .nv,
+[data-md-color-scheme="slate"] .highlight .vc,
+[data-md-color-scheme="slate"] .highlight .vg,
+[data-md-color-scheme="slate"] .highlight .vi,
+[data-md-color-scheme="slate"] .highlight .na {
+  color: #79c0ff !important; /* Variables */
+}
+
+[data-md-color-scheme="slate"] .highlight .o,
+[data-md-color-scheme="slate"] .highlight .ow {
+  color: #ff7b72 !important; /* Operators */
+}
+
+[data-md-color-scheme="slate"] .highlight .p {
+  color: #c9d1d9 !important; /* Punctuation */
+}
+
+/* Light mode syntax colors (Default) */
+[data-md-color-scheme="default"] {
+  --md-code-bg-color: #f6f8fa;
+  --md-code-fg-color: #24292f;
+}
+
+[data-md-color-scheme="default"] .highlight .k,
+[data-md-color-scheme="default"] .highlight .kd,
+[data-md-color-scheme="default"] .highlight .kn,
+[data-md-color-scheme="default"] .highlight .kp,
+[data-md-color-scheme="default"] .highlight .kr {
+  color: #cf222e !important;
+  font-weight: 600;
+}
+
+[data-md-color-scheme="default"] .highlight .s,
+[data-md-color-scheme="default"] .highlight .s1,
+[data-md-color-scheme="default"] .highlight .s2,
+[data-md-color-scheme="default"] .highlight .se,
+[data-md-color-scheme="default"] .highlight .sh,
+[data-md-color-scheme="default"] .highlight .sr,
+[data-md-color-scheme="default"] .highlight .cpf {
+  color: #0a3069 !important;
+}
+
+[data-md-color-scheme="default"] .highlight .m,
+[data-md-color-scheme="default"] .highlight .mb,
+[data-md-color-scheme="default"] .highlight .mf,
+[data-md-color-scheme="default"] .highlight .mh,
+[data-md-color-scheme="default"] .highlight .mi,
+[data-md-color-scheme="default"] .highlight .mo,
+[data-md-color-scheme="default"] .highlight .il {
+  color: #953800 !important;
+}
+
+[data-md-color-scheme="default"] .highlight .nf,
+[data-md-color-scheme="default"] .highlight .fm {
+  color: #8250df !important;
+  font-weight: 600;
+}
+
+[data-md-color-scheme="default"] .highlight .nb,
+[data-md-color-scheme="default"] .highlight .bp,
+[data-md-color-scheme="default"] .highlight .no {
+  color: #116329 !important;
+}
+
+[data-md-color-scheme="default"] .highlight .nc,
+[data-md-color-scheme="default"] .highlight .ne,
+[data-md-color-scheme="default"] .highlight .nn {
+  color: #953800 !important;
+  font-weight: 600;
+}
+
+[data-md-color-scheme="default"] .highlight .c,
+[data-md-color-scheme="default"] .highlight .c1,
+[data-md-color-scheme="default"] .highlight .ch,
+[data-md-color-scheme="default"] .highlight .cm,
+[data-md-color-scheme="default"] .highlight .cp,
+[data-md-color-scheme="default"] .highlight .cs {
+  color: #6e7781 !important;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   Admonitions & Callouts (High Contrast, Distinct Colored Left Border)
+   ========================================================================== */
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 9px !important;
+  border-width: 1px 1px 1px 4px !important;
+  box-shadow: none !important;
+  font-size: 0.82rem;
+  margin: 0.9em 0 !important;
+  padding: 0.6rem 0.9rem !important;
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+  font-weight: 700 !important;
+  font-size: 0.84rem !important;
+  margin: 0 0 0.35rem 0 !important;
+}
+
+/* Danger / Critical */
+.md-typeset .admonition.danger {
+  border-left-color: #ef4444 !important;
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.danger {
+  background: rgba(239, 68, 68, 0.08) !important;
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.danger > .admonition-title {
+  color: #f87171 !important;
+}
+[data-md-color-scheme="default"] .md-typeset .admonition.danger {
+  background: rgba(239, 68, 68, 0.05) !important;
+}
+[data-md-color-scheme="default"] .md-typeset .admonition.danger > .admonition-title {
+  color: #dc2626 !important;
+}
+
+/* Warning */
+.md-typeset .admonition.warning {
+  border-left-color: #f59e0b !important;
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.warning {
+  background: rgba(245, 158, 11, 0.08) !important;
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.warning > .admonition-title {
+  color: #fbbf24 !important;
+}
+[data-md-color-scheme="default"] .md-typeset .admonition.warning {
+  background: rgba(245, 158, 11, 0.05) !important;
+}
+[data-md-color-scheme="default"] .md-typeset .admonition.warning > .admonition-title {
+  color: #d97706 !important;
+}
+
+/* Tip / Success */
+.md-typeset .admonition.tip {
+  border-left-color: #10b981 !important;
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.tip {
+  background: rgba(16, 185, 129, 0.08) !important;
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.tip > .admonition-title {
+  color: #34d399 !important;
+}
+[data-md-color-scheme="default"] .md-typeset .admonition.tip {
+  background: rgba(16, 185, 129, 0.05) !important;
+}
+[data-md-color-scheme="default"] .md-typeset .admonition.tip > .admonition-title {
+  color: #059669 !important;
+}
+
+/* Note / Info / Important */
+.md-typeset .admonition.note,
+.md-typeset .admonition.important,
+.md-typeset .admonition.info {
+  border-left-color: #3b82f6 !important;
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.note,
+[data-md-color-scheme="slate"] .md-typeset .admonition.important,
+[data-md-color-scheme="slate"] .md-typeset .admonition.info {
+  background: rgba(59, 130, 246, 0.08) !important;
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.note > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset .admonition.important > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset .admonition.info > .admonition-title {
+  color: #60a5fa !important;
+}
+[data-md-color-scheme="default"] .md-typeset .admonition.note,
+[data-md-color-scheme="default"] .md-typeset .admonition.important,
+[data-md-color-scheme="default"] .md-typeset .admonition.info {
+  background: rgba(59, 130, 246, 0.05) !important;
+}
+[data-md-color-scheme="default"] .md-typeset .admonition.note > .admonition-title,
+[data-md-color-scheme="default"] .md-typeset .admonition.important > .admonition-title,
+[data-md-color-scheme="default"] .md-typeset .admonition.info > .admonition-title {
+  color: #2563eb !important;
+}
+
+/* Status Chips */
 .status-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: .55rem;
-  margin: .8rem 0 1rem;
+  gap: 0.4rem;
+  margin: 0.6rem 0 0.9rem;
 }
+
 .status-chip {
   display: inline-flex;
   align-items: center;
-  gap: .35rem;
-  padding: .27rem .6rem;
+  gap: 0.3rem;
+  padding: 0.2rem 0.5rem;
   border: 1px solid var(--guide-line);
   border-radius: 999px;
   background: var(--guide-surface);
-  font-size: .74rem;
+  font-size: 0.7rem;
   font-weight: 700;
 }
-.status-chip.good { border-color: rgba(39, 174, 120, .35); color: #2ba879; }
-.status-chip.warn { border-color: rgba(222, 157, 50, .4); color: #c78a22; }
-.status-chip.info { border-color: rgba(79, 141, 247, .35); color: #4f8df7; }
 
-/* Code-first documentation: strong borders, no enormous round corners. */
-pre {
-  border: 1px solid var(--guide-line) !important;
-  border-radius: 13px !important;
-  box-shadow: 0 8px 28px rgba(0,0,0,.08);
+.status-chip.good {
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.08);
+  color: #10b981;
 }
-code, pre, kbd { font-variant-ligatures: none; }
 
-/* Tables are easier to scan when headings stay quiet and rows remain compact. */
+.status-chip.warn {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: rgba(245, 158, 11, 0.08);
+  color: #f59e0b;
+}
+
+.status-chip.info {
+  border-color: rgba(59, 130, 246, 0.4);
+  background: rgba(59, 130, 246, 0.08);
+  color: #3b82f6;
+}
+
+/* Tables */
+.md-typeset table:not([class]) {
+  border: 1px solid var(--guide-line);
+  border-radius: 9px;
+  overflow: hidden;
+  font-size: 0.81rem;
+  margin: 0.9rem 0;
+}
+
 .md-typeset table:not([class]) th {
-  font-size: .78rem;
-  letter-spacing: .035em;
+  background: rgba(59, 130, 246, 0.08);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-}
-.md-typeset table:not([class]) td { vertical-align: top; }
-
-/* Callout blocks. */
-.md-typeset .admonition,
-.md-typeset details {
-  border-radius: 13px;
-  border-width: 1px;
-  box-shadow: none;
+  font-weight: 700;
+  padding: 0.5rem 0.75rem;
 }
 
-/* Slightly clearer heading rhythm. */
-.md-typeset h1 { letter-spacing: -.035em; font-weight: 760; }
-.md-typeset h2 { margin-top: 2.2em; letter-spacing: -.02em; }
-.md-typeset h3 { letter-spacing: -.01em; }
-
-@media (max-width: 760px) {
-  .card-grid { grid-template-columns: 1fr; }
-  .hero-panel { border-radius: 18px; }
+.md-typeset table:not([class]) td {
+  padding: 0.5rem 0.75rem;
+  vertical-align: middle;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
-}
-
-/* Navigation and reading surface polish. */
+/* Tabs & Header */
 .md-header {
-  box-shadow: 0 8px 30px rgba(4, 12, 24, .12);
-  border-bottom: 1px solid rgba(140, 170, 205, .14);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--guide-line);
 }
+
 .md-tabs {
   border-bottom: 1px solid var(--guide-line);
 }
-.md-main__inner {
-  margin-top: .65rem;
-}
-.md-content__inner {
-  padding-bottom: 3rem;
-}
-.md-search__form {
-  border: 1px solid rgba(140, 170, 205, .18);
-  border-radius: 11px;
-}
+
 .md-nav__link--active,
 .md-nav__link:focus,
 .md-nav__link:hover {
   color: var(--guide-blue);
 }
 
-/* Refined link and heading hierarchy. */
-.md-typeset a:not(.doc-card a) {
-  text-underline-offset: .18em;
-  text-decoration-thickness: .07em;
+@media (max-width: 768px) {
+  .hero-panel {
+    padding: 1.1rem 1.1rem;
+  }
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
 }
-.md-typeset h1 {
-  margin-bottom: 1.15rem;
-}
-.md-typeset h2 {
-  padding-bottom: .42rem;
-  border-bottom: 1px solid var(--guide-line);
-}
-.md-typeset h3 {
-  margin-top: 1.5rem;
-}
-
-/* Tables and command blocks should feel like technical documentation. */
-.md-typeset table:not([class]) {
-  border: 1px solid var(--guide-line);
-  border-radius: 12px;
-  overflow: hidden;
-  font-size: .88rem;
-}
-.md-typeset table:not([class]) th {
-  background: rgba(79, 141, 247, .075);
-}
-.md-typeset pre > code {
-  font-size: .82rem;
-  line-height: 1.65;
-}
-.md-typeset .highlight {
-  margin: 1rem 0 1.35rem;
-}
-.md-typeset .highlight pre {
-  margin: 0;
-}
-
-/* Make cards read as one coherent component, not unrelated boxes. */
-.doc-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-.doc-card h3 a {
-  color: var(--md-typeset-color);
-  text-decoration: none;
-}
-.doc-card h3 a:hover {
-  color: var(--guide-blue);
-}
-.doc-card p + p {
-  margin-top: .5rem;
-}
-
-/* Keep status labels legible in both light and dark schemes. */
-[data-md-color-scheme="slate"] .status-chip.good { color: #65d6a8; }
-[data-md-color-scheme="slate"] .status-chip.warn { color: #f0bd63; }
-[data-md-color-scheme="slate"] .status-chip.info { color: #88b6ff; }
-[data-md-color-scheme="slate"] .doc-card p { color: #aab8ca; }

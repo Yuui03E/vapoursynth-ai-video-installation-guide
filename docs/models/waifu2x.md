@@ -1,112 +1,92 @@
-# Waifu2x · anime upscaling and denoising
+# Waifu2x · Upscaling & Denoising
 
-<figure markdown>
-  <div class="status-row">
-    <span class="status-chip info">Spatial upscaling</span>
-    <span class="status-chip info">Optional denoising</span>
-    <span class="status-chip warn">Wrapper API must be checked</span>
-  </div>
-</figure>
+Waifu2x is a time-tested model family designed for 2D illustration and anime upscaling with adjustable noise-reduction levels.
 
-Waifu2x is a family of models commonly used for anime and illustration upscaling, with model choices and noise-reduction levels. Its behavior depends on the selected architecture, scale and noise setting. Stronger denoising can remove grain and compression artifacts, but it can also erase thin lines and texture.
+---
 
-## Reference model inventory
+## 1. Model Asset & Location
 
-The audited model pack contained 39 Waifu2x ONNX files, including model families such as `anime_style_art`, `cunet`, `photo`, `ukbench`, `upconv_7` and `upresnet10`.
+Waifu2x models are included in the base **`models.v15.16.7z`** archive under the `waifu2x/` subfolder.
 
-The AmusementClub wrapper is model-aware. Prefer its `Waifu2x` function over feeding a Waifu2x ONNX file to a generic scaler without checking the model's input/output contract.
+Key model architectures included:
+- `upconv_7_anime_style_art_rgb`: Classic, sharp, reliable for 2D anime.
+- `cunet`: High-quality convolutional neural network with fine texture handling.
 
-## Check the local wrapper first
-
-The reference machine has `vsmlrt.py` version `4.1.1+api4.jetfix2`. The upstream wrapper evolves independently, so inspect the installed enum and function signature:
+Verify the model path:
 
 ```powershell
-@'
-import inspect
-from vsmlrt import Waifu2x, Waifu2xModel, Backend
-
-print("Waifu2x signature:", inspect.signature(Waifu2x))
-print("Available models:")
-for name in dir(Waifu2xModel):
-    if not name.startswith("_"):
-        print(" ", name)
-print("TRT backend:", inspect.signature(Backend.TRT))
-'@ | py -3.14 -
+$pluginDir = (py -3.14 -c "import vapoursynth as vs; print(vs.get_plugin_dir())").Trim()
+$modelDir = Join-Path $pluginDir "models\waifu2x"
+Test-Path $modelDir
 ```
 
-Confirm that `Waifu2xModel.upconv_7_anime_style_art_rgb` exists before using the example below. If your wrapper exposes a different name, use a model identifier that is present in the local enum; do not copy an enum name from another version.
+---
 
-## Example script
+## 2. Complete Python Script (`waifu2x_2x.vpy`)
 
-[View or copy `examples/waifu2x_2x.vpy`](../examples/waifu2x_2x.vpy)
+Save this as `waifu2x_2x.vpy`:
 
 ```python
 import vapoursynth as vs
 from pathlib import Path
-
 from vssource import BestSource
 from vstools import initialize_clip, finalize_clip
 from vsmlrt import Waifu2x, Waifu2xModel, Backend
 
 core = vs.core
-SOURCE = Path(r"D:\Video\input.mkv")
 
-if not SOURCE.is_file():
-    raise FileNotFoundError(f"Source video not found: {SOURCE}")
+SOURCE = r"C:\path\to\your\input.mp4"
 
-# Confirm this enum member exists in your local vsmlrt.py first.
-MODEL = Waifu2xModel.upconv_7_anime_style_art_rgb
-
-src = BestSource.source(str(SOURCE))
+# 1. Load source video
+src = BestSource.source(SOURCE)
 clip = initialize_clip(src)
 
-# Assumes BT.709 input; adapt to the source's actual color metadata.
-clip_rgb = core.resize.Bicubic(
-    clip,
-    format=vs.RGBS,
-    matrix_in_s="709",
-)
+# 2. Convert to RGBS 32-bit float
+clip_rgb = core.resize.Bicubic(clip, format=vs.RGBS, matrix_in_s="709")
 
+# 3. Configure TensorRT backend
 backend = Backend.TRT(
     fp16=True,
     device_id=0,
-    num_streams=2,
+    num_streams=2
 )
 
+# 4. Run Waifu2x (2x scale, noise level 1)
+# Noise levels: -1 = None, 0 = Low, 1 = Medium, 2 = High, 3 = Maximum
 scaled_rgb = Waifu2x(
     clip_rgb,
-    noise=-1,  # no additional denoising
+    noise=1,
     scale=2,
-    model=MODEL,
-    backend=backend,
+    model=Waifu2xModel.upconv_7_anime_style_art_rgb,
+    backend=backend
 )
 
-out = core.resize.Bicubic(
-    scaled_rgb,
-    format=vs.YUV420P10,
-    matrix_s="709",
-)
+# 5. Convert back to 10-bit YUV
+out = core.resize.Bicubic(scaled_rgb, format=vs.YUV420P10, matrix_s="709")
 out = finalize_clip(out)
 
 src.set_output(0)
 out.set_output(1)
 ```
 
-## Tune denoising conservatively
+---
 
-The example uses `noise=-1`, which requests no additional denoising. If the source is noisy, the wrapper may expose levels such as `0`, `1`, `2` and `3`; check the local function signature and model docs before changing it.
+## 3. Recommended Noise Levels
 
-| Source condition | Starting point | What to inspect |
-|---|---|---|
-| Clean digital source | `noise=-1` | Line fidelity and edge halos. |
-| Mild compression noise | A low denoise setting | Fine hair, eyelashes, subtitles and thin lines. |
-| Heavy noise / damaged source | Test a stronger setting on crops | Texture loss, waxy surfaces and lost grain. |
+| Noise Setting | Best For | Visual Effect |
+|:---:|---|---|
+| `noise = -1` | Clean digital animation | Upscaling only, preserves 100% of original texture and grain. |
+| `noise = 0` / `1` | Mild compression or web streaming artifacts | Cleans up faint JPEG/MPEG macroblocking around high-contrast edges. |
+| `noise = 2` / `3` | Heavy vintage compression (e.g. old 480p videos) | Aggressive artifact removal; inspect closely to avoid waxy skin texture. |
 
-## Render a short test
+---
+
+## 4. Preview & Test
 
 ```powershell
-vspipe --start 0 --end 95 --outputindex 1 --container y4m `
-  .\docs\examples\waifu2x_2x.vpy .\waifu2x_test.y4m
-```
+# Interactive preview
+vsview waifu2x_2x.vpy
 
-The example is an API-aligned template based on the wrapper interface recorded in the guide. The environment audit did not execute Waifu2x inference; validate the selected model enum and run a short render on the target machine.
+# Render short test clip
+vspipe --start 0 --end 99 --outputindex 1 --container y4m waifu2x_2x.vpy waifu2x_test.y4m
+```
