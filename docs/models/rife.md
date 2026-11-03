@@ -1,4 +1,4 @@
-# RIFE · Frame Interpolation (60fps / 120fps)
+# RIFE / Frame Interpolation (60fps / 120fps)
 
 RIFE (Real-Time Intermediate Flow Estimation) calculates motion vectors between adjacent frames and synthesizes intermediate frames to produce ultra-smooth motion.
 

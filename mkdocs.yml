@@ -11,6 +11,9 @@ theme:
   variant: modern
   logo: assets/vapoursynth-mark.svg
   favicon: assets/favicon.svg
+  font:
+    text: Space Grotesk
+    code: JetBrains Mono
   features:
     - navigation.tabs
     - navigation.sections
@@ -24,15 +27,15 @@ theme:
   palette:
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: blue
-      accent: cyan
+      primary: black
+      accent: red
       toggle:
         icon: lucide/sun
         name: Switch to light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: blue
-      accent: cyan
+      primary: black
+      accent: red
       toggle:
         icon: lucide/moon
         name: Switch to dark mode

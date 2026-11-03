@@ -1,4 +1,4 @@
-# Waifu2x · Upscaling & Denoising
+# Waifu2x / Upscaling & Denoising
 
 Waifu2x is a time-tested model family designed for 2D illustration and anime upscaling with adjustable noise-reduction levels.
 

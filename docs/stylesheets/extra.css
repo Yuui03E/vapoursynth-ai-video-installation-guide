@@ -1,18 +1,98 @@
 /* ==========================================================================
-   VapourSynth AI Video Installation Guide — Stylesheet
-   Modern, compact, high-contrast developer documentation theme
+   Ryoku Design System for VapourSynth AI Video Installation Guide
+   Inspired by https://ryoku.dev/ & https://docs.ryoku.dev/
+   Aesthetic: Technical Japanese minimalism, deep carbon paper, warm bone ink,
+              crimson cinnabar accent (sun), sharp geometric rules & precision.
    ========================================================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 :root {
-  --guide-blue: #3b82f6;
-  --guide-cyan: #06b6d4;
-  --guide-purple: #8b5cf6;
-  --guide-green: #10b981;
-  --guide-amber: #f59e0b;
-  --guide-red: #ef4444;
-  --guide-line: rgba(120, 145, 175, 0.2);
-  --guide-surface: rgba(130, 160, 195, 0.05);
-  --guide-radius: 10px;
+  /* Ryoku Core Palette */
+  --ryoku-paper: #000000;
+  --ryoku-paper-raised: #0a0a0c;
+  --ryoku-paper-card: #0d0e11;
+  --ryoku-ink: #cdc4ba;          /* Warm bone / cream white */
+  --ryoku-ink-dim: #b0a9a0;      /* Dimmed secondary text */
+  --ryoku-ink-muted: #958f87;    /* Muted text */
+  --ryoku-ink-faint: #807a73;    /* Faint technical labels */
+  --ryoku-sun: #e2342a;          /* Signature Ryoku Cinnabar / Crimson Red */
+  --ryoku-sun-ink: #fbeee2;
+  --ryoku-jade: #6daf8c;         /* Success / Tip green */
+  --ryoku-steel: #6ea5cf;        /* Note / Info blue */
+  --ryoku-amber: #e59344;        /* Warning orange */
+  
+  --ryoku-line: rgba(205, 196, 186, 0.18);
+  --ryoku-line-soft: rgba(205, 196, 186, 0.09);
+  --ryoku-line-strong: rgba(205, 196, 186, 0.38);
+  --ryoku-radius: 3px;
+
+  --ryoku-font-sans: "Space Grotesk", "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+  --ryoku-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Material / Zensical Overrides */
+  --md-text-font-family: var(--ryoku-font-sans);
+  --md-code-font-family: var(--ryoku-font-mono);
+  --md-primary-fg-color: #050505;
+  --md-primary-fg-color--light: #0d0e11;
+  --md-primary-fg-color--dark: #000000;
+  --md-accent-fg-color: var(--ryoku-sun);
+}
+
+/* Subtle organic grain overlay from Ryoku */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size: 140px;
+  opacity: 0.032;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Ryoku text selection */
+::selection {
+  background: var(--ryoku-sun) !important;
+  color: var(--ryoku-sun-ink) !important;
+}
+
+/* Dark mode root colors (Slate) */
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #000000;
+  --md-default-bg-color--light: #060708;
+  --md-default-bg-color--lighter: #0a0b0d;
+  --md-default-bg-color--lightest: #121316;
+  --md-default-fg-color: var(--ryoku-ink);
+  --md-default-fg-color--light: var(--ryoku-ink-dim);
+  --md-default-fg-color--lighter: var(--ryoku-ink-muted);
+  --md-default-fg-color--lightest: var(--ryoku-ink-faint);
+  --md-code-bg-color: #07080a;
+  --md-code-fg-color: #e6edf3;
+  --md-typeset-color: var(--ryoku-ink);
+  --md-typeset-a-color: var(--ryoku-ink);
+  background-color: #000000;
+}
+
+/* Light mode root colors (Warm parchment / paper) */
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: #f7f5f2;
+  --md-default-bg-color--light: #eeeae4;
+  --md-default-bg-color--lighter: #e4dfd7;
+  --md-default-bg-color--lightest: #dad4ca;
+  --md-default-fg-color: #1f1d1a;
+  --md-default-fg-color--light: #3f3b35;
+  --md-default-fg-color--lighter: #635d55;
+  --md-default-fg-color--lightest: #8c8479;
+  --md-code-bg-color: #ece7e0;
+  --md-code-fg-color: #1f1d1a;
+  --md-typeset-color: #1f1d1a;
+  --md-typeset-a-color: #1f1d1a;
+  --ryoku-line: rgba(31, 29, 26, 0.16);
+  --ryoku-line-soft: rgba(31, 29, 26, 0.08);
+  --ryoku-line-strong: rgba(31, 29, 26, 0.35);
+  background-color: #f7f5f2;
 }
 
 html {
@@ -20,113 +100,218 @@ html {
 }
 
 .md-grid {
-  max-width: 1280px;
+  max-width: 1260px;
 }
 
 /* ==========================================================================
-   Typography & Heading Hierarchy (Clean, Compact, Not Oversized)
+   Header & Navigation (Clean, Architectural, 1px Lines)
+   ========================================================================== */
+
+.md-header {
+  background-color: rgba(5, 5, 5, 0.95) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--ryoku-line) !important;
+  box-shadow: none !important;
+}
+
+[data-md-color-scheme="default"] .md-header {
+  background-color: rgba(247, 245, 242, 0.95) !important;
+}
+
+.md-header__title {
+  font-family: var(--ryoku-font-sans);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: 0.9rem;
+}
+
+.md-tabs {
+  background-color: rgba(5, 5, 5, 0.92) !important;
+  border-bottom: 1px solid var(--ryoku-line) !important;
+}
+
+[data-md-color-scheme="default"] .md-tabs {
+  background-color: rgba(247, 245, 242, 0.92) !important;
+}
+
+.md-tabs__link {
+  font-family: var(--ryoku-font-sans);
+  font-size: 0.68rem !important;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ryoku-ink-dim) !important;
+  padding: 0.85rem 0.8rem;
+  transition: color 0.12s ease;
+}
+
+.md-tabs__link:hover,
+.md-tabs__item--active .md-tabs__link {
+  color: #ffffff !important;
+}
+
+[data-md-color-scheme="default"] .md-tabs__link:hover,
+[data-md-color-scheme="default"] .md-tabs__item--active .md-tabs__link {
+  color: #000000 !important;
+}
+
+.md-tabs__item--active {
+  position: relative;
+}
+
+.md-tabs__item--active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0.8rem;
+  right: 0.8rem;
+  height: 2px;
+  background-color: var(--ryoku-sun);
+}
+
+.md-nav__link {
+  font-family: var(--ryoku-font-sans);
+  font-size: 0.78rem;
+  transition: color 0.12s ease;
+}
+
+.md-nav__link--active,
+.md-nav__link:hover,
+.md-nav__link:focus {
+  color: var(--ryoku-sun) !important;
+}
+
+/* ==========================================================================
+   Typography & Heading Scale (Technical, Sharp, Balanced)
    ========================================================================== */
 
 .md-typeset {
+  font-family: var(--ryoku-font-sans);
   font-size: 0.84rem;
-  line-height: 1.65;
+  line-height: 1.68;
   letter-spacing: -0.005em;
+  color: var(--md-typeset-color);
 }
 
 .md-typeset h1 {
-  font-size: 1.6rem !important;
-  font-weight: 750 !important;
+  font-size: 1.55rem !important;
+  font-weight: 700 !important;
   line-height: 1.25 !important;
   letter-spacing: -0.03em !important;
-  margin-top: 0.8rem;
+  margin-top: 1rem;
   margin-bottom: 0.8rem;
 }
 
 .md-typeset h2 {
-  font-size: 1.22rem !important;
+  font-size: 1.18rem !important;
   font-weight: 700 !important;
   letter-spacing: -0.02em !important;
   margin-top: 1.8rem;
-  margin-bottom: 0.55rem;
+  margin-bottom: 0.6rem;
   padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--guide-line);
+  border-bottom: 1px solid var(--ryoku-line);
 }
 
 .md-typeset h3 {
-  font-size: 1.02rem !important;
+  font-size: 0.98rem !important;
   font-weight: 650 !important;
-  letter-spacing: -0.012em !important;
-  margin-top: 1.3rem;
+  letter-spacing: -0.015em !important;
+  margin-top: 1.35rem;
   margin-bottom: 0.4rem;
 }
 
 .md-typeset h4 {
-  font-size: 0.9rem !important;
+  font-size: 0.86rem !important;
   font-weight: 650 !important;
   margin-top: 1rem;
 }
 
-.md-typeset p {
-  margin-top: 0.55em;
-  margin-bottom: 0.75em;
+.md-typeset hr {
+  border-bottom: 1px solid var(--ryoku-line);
+  margin: 1.8em 0;
+}
+
+.md-typeset a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--ryoku-line-strong);
+  text-underline-offset: 3px;
+  transition: color 0.12s ease, text-decoration-color 0.12s ease;
+}
+
+.md-typeset a:hover {
+  color: var(--ryoku-sun) !important;
+  text-decoration-color: var(--ryoku-sun) !important;
 }
 
 /* ==========================================================================
-   Hero Panel (Compact & Modern)
+   Hero Panel (Ryoku Signature Obsidian & Cinnabar Border)
    ========================================================================== */
 
 .hero-panel {
   position: relative;
   overflow: hidden;
-  margin: 0.5rem 0 1.5rem;
+  margin: 0.6rem 0 1.6rem;
   padding: 1.35rem 1.6rem;
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  border-radius: 14px;
-  background:
-    radial-gradient(circle at 85% 15%, rgba(6, 182, 212, 0.14), transparent 20rem),
-    radial-gradient(circle at 10% 90%, rgba(59, 130, 246, 0.15), transparent 22rem),
-    linear-gradient(135deg, #0d1522 0%, #101a2b 55%, #0b1f2b 100%);
-  color: #eef5ff;
-  box-shadow: 0 8px 24px rgba(2, 6, 16, 0.22);
+  border: 1px solid var(--ryoku-line);
+  border-top: 2px solid var(--ryoku-sun);
+  border-radius: var(--ryoku-radius);
+  background: var(--ryoku-paper-raised);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
 }
 
 .hero-panel h1 {
-  margin: 0.35rem 0 0.4rem !important;
-  font-size: 1.55rem !important;
-  font-weight: 780 !important;
+  margin: 0.35rem 0 0.45rem !important;
+  font-size: 1.48rem !important;
+  font-weight: 750 !important;
   line-height: 1.2 !important;
-  letter-spacing: -0.03em !important;
+  letter-spacing: -0.035em !important;
   color: #ffffff !important;
 }
 
+[data-md-color-scheme="default"] .hero-panel h1 {
+  color: #000000 !important;
+}
+
 .hero-panel .hero-lede {
-  color: #cbd5e1;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  margin: 0 0 0.75rem 0;
+  color: var(--ryoku-ink-dim);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  margin: 0 0 0.85rem 0;
   max-width: 820px;
 }
 
 .hero-kicker {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.22rem 0.6rem;
-  border: 1px solid rgba(96, 165, 250, 0.35);
-  border-radius: 999px;
-  background: rgba(59, 130, 246, 0.12);
-  color: #93c5fd;
-  font-size: 0.68rem;
-  font-weight: 750;
-  letter-spacing: 0.08em;
+  gap: 0.45rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--ryoku-line);
+  border-radius: var(--ryoku-radius);
+  background: rgba(205, 196, 186, 0.04);
+  color: var(--ryoku-ink-dim);
+  font-family: var(--ryoku-font-mono);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+.hero-kicker::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ryoku-sun);
 }
 
 .hero-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin-top: 0.85rem;
+  margin-top: 0.9rem;
 }
 
 .hero-meta span {
@@ -134,165 +319,134 @@ html {
   align-items: center;
   gap: 0.3rem;
   padding: 0.2rem 0.5rem;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #e2e8f0;
-  font-size: 0.72rem;
-  font-weight: 600;
+  border: 1px solid var(--ryoku-line);
+  border-radius: var(--ryoku-radius);
+  background: rgba(205, 196, 186, 0.04);
+  color: var(--ryoku-ink-dim);
+  font-family: var(--ryoku-font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
 }
 
 /* ==========================================================================
-   Step Indicators & Badges
+   Step Indicators (Ryoku Precision Stamp Badge)
    ========================================================================== */
 
 .step-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 23px;
-  height: 23px;
-  border-radius: 50%;
-  background: #2563eb;
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  background: var(--ryoku-sun);
   color: #ffffff !important;
-  font-size: 0.72rem;
-  font-weight: 750;
-  margin-right: 0.4rem;
-  vertical-align: middle;
-  box-shadow: 0 2px 5px rgba(37, 99, 235, 0.35);
+  font-family: var(--ryoku-font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-right: 0.5rem;
+  vertical-align: 1px;
 }
 
+/* Card Grid (Sharp, Minimalist Architecture) */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 0.75rem;
-  margin: 1rem 0;
+  margin: 1.1rem 0;
 }
 
 .doc-card {
   padding: 0.95rem 1.1rem;
-  border: 1px solid var(--guide-line);
-  border-radius: var(--guide-radius);
-  background: var(--guide-surface);
-  transition: all 0.15s ease;
+  border: 1px solid var(--ryoku-line);
+  border-radius: var(--ryoku-radius);
+  background: var(--ryoku-paper-card);
+  transition: border-color 0.12s ease, transform 0.12s ease;
   display: flex;
   flex-direction: column;
 }
 
 .doc-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(59, 130, 246, 0.5);
-  background: rgba(59, 130, 246, 0.06);
+  border-color: var(--ryoku-line-strong);
+  transform: translateY(-1px);
 }
 
 .doc-card h3 {
   margin: 0.15rem 0 0.3rem !important;
-  font-size: 0.94rem !important;
+  font-size: 0.92rem !important;
+  font-weight: 650;
 }
 
 .doc-card h3 a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.doc-card h3 a:hover {
-  color: var(--guide-blue);
+  text-decoration: none !important;
 }
 
 .doc-card p {
   margin: 0;
-  color: var(--guide-muted, #64748b);
-  font-size: 0.81rem;
-  line-height: 1.48;
+  color: var(--ryoku-ink-dim);
+  font-size: 0.79rem;
+  line-height: 1.5;
 }
 
 .doc-card .card-index {
-  color: var(--guide-blue);
-  font-size: 0.66rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  color: var(--ryoku-sun);
+  font-family: var(--ryoku-font-mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 /* ==========================================================================
-   Inline Code & Keyboard Badges (Punchy, High Contrast)
+   Code Blocks & Syntax Highlighting (Ryoku Terminal Aesthetic)
    ========================================================================== */
 
+/* Inline code badge */
 .md-typeset :not(pre) > code {
-  font-family: "JetBrains Mono", Consolas, "Fira Code", monospace;
-  font-size: 0.83em;
-  padding: 0.16em 0.44em;
-  border-radius: 6px;
-  font-weight: 600;
+  font-family: var(--ryoku-font-mono) !important;
+  font-size: 0.81em;
+  padding: 0.14em 0.42em;
+  border-radius: 2px;
+  font-weight: 500;
   letter-spacing: -0.01em;
   white-space: break-spaces;
 }
 
 [data-md-color-scheme="slate"] .md-typeset :not(pre) > code {
-  background: rgba(56, 139, 253, 0.16) !important;
-  color: #79c0ff !important;
-  border: 1px solid rgba(56, 139, 253, 0.32) !important;
+  background: rgba(205, 196, 186, 0.08) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--ryoku-line) !important;
 }
 
 [data-md-color-scheme="default"] .md-typeset :not(pre) > code {
-  background: rgba(9, 105, 218, 0.08) !important;
-  color: #0550ae !important;
-  border: 1px solid rgba(9, 105, 218, 0.22) !important;
+  background: rgba(31, 29, 26, 0.06) !important;
+  color: #1f1d1a !important;
+  border: 1px solid var(--ryoku-line) !important;
 }
 
-/* Keyboard keys */
-.md-typeset kbd {
-  display: inline-block;
-  padding: 0.1em 0.45em;
-  font-size: 0.76em;
-  font-family: inherit;
-  border-radius: 5px;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
-  vertical-align: middle;
-}
-
-[data-md-color-scheme="slate"] .md-typeset kbd {
-  background: #1e2633;
-  color: #f1f5f9;
-  border: 1px solid #334155;
-}
-
-[data-md-color-scheme="default"] .md-typeset kbd {
-  background: #f1f5f9;
-  color: #0f172a;
-  border: 1px solid #cbd5e1;
-}
-
-/* ==========================================================================
-   Code Blocks & Syntax Highlighting (Rich Developer Palette)
-   ========================================================================== */
-
+/* Code block pre container */
 .md-typeset pre {
-  margin: 0.75em 0 1em !important;
-  border-radius: 9px !important;
-  border: 1px solid var(--guide-line) !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+  margin: 0.8em 0 1.1em !important;
+  border-radius: var(--ryoku-radius) !important;
+  border: 1px solid var(--ryoku-line) !important;
+  background-color: var(--ryoku-paper-raised) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .md-typeset pre > code {
-  font-family: "JetBrains Mono", Consolas, "Fira Code", monospace;
-  font-size: 0.8rem !important;
-  line-height: 1.58;
-  padding: 0.8rem 1.1rem;
+  font-family: var(--ryoku-font-mono) !important;
+  font-size: 0.79rem !important;
+  line-height: 1.62;
+  padding: 0.85rem 1.15rem;
 }
 
-/* Dark mode syntax colors (Slate) */
-[data-md-color-scheme="slate"] {
-  --md-code-bg-color: #0f141c;
-  --md-code-fg-color: #e6edf3;
-}
-
+/* Syntax Token Colors (Dark Mode) */
 [data-md-color-scheme="slate"] .highlight .k,
 [data-md-color-scheme="slate"] .highlight .kd,
 [data-md-color-scheme="slate"] .highlight .kn,
 [data-md-color-scheme="slate"] .highlight .kp,
 [data-md-color-scheme="slate"] .highlight .kr {
-  color: #ff7b72 !important; /* Keywords: Coral */
+  color: #ff6b61 !important; /* Cinnabar Accent for Keywords */
   font-weight: 600;
 }
 
@@ -303,7 +457,7 @@ html {
 [data-md-color-scheme="slate"] .highlight .sh,
 [data-md-color-scheme="slate"] .highlight .sr,
 [data-md-color-scheme="slate"] .highlight .cpf {
-  color: #a5d6ff !important; /* Strings: Sky Blue */
+  color: #8be9a8 !important; /* Jade Green for Strings */
 }
 
 [data-md-color-scheme="slate"] .highlight .m,
@@ -313,25 +467,25 @@ html {
 [data-md-color-scheme="slate"] .highlight .mi,
 [data-md-color-scheme="slate"] .highlight .mo,
 [data-md-color-scheme="slate"] .highlight .il {
-  color: #f2cc60 !important; /* Numbers: Amber */
+  color: #e59344 !important; /* Warm Amber for Numbers */
 }
 
 [data-md-color-scheme="slate"] .highlight .nf,
 [data-md-color-scheme="slate"] .highlight .fm {
-  color: #d2a8ff !important; /* Functions: Purple */
+  color: #79c0ff !important; /* Ice Blue for Functions */
   font-weight: 600;
 }
 
 [data-md-color-scheme="slate"] .highlight .nb,
 [data-md-color-scheme="slate"] .highlight .bp,
 [data-md-color-scheme="slate"] .highlight .no {
-  color: #7ee787 !important; /* Built-ins/Cmdlets/Constants: Mint */
+  color: #6daf8c !important; /* Built-in / Cmdlet / Constant */
 }
 
 [data-md-color-scheme="slate"] .highlight .nc,
 [data-md-color-scheme="slate"] .highlight .ne,
 [data-md-color-scheme="slate"] .highlight .nn {
-  color: #ffa657 !important; /* Classes/Modules: Orange */
+  color: #ffab70 !important; /* Module / Class */
   font-weight: 600;
 }
 
@@ -341,7 +495,7 @@ html {
 [data-md-color-scheme="slate"] .highlight .cm,
 [data-md-color-scheme="slate"] .highlight .cp,
 [data-md-color-scheme="slate"] .highlight .cs {
-  color: #8b949e !important; /* Comments */
+  color: #807a73 !important; /* Warm Slate Italic Comments */
   font-style: italic;
 }
 
@@ -350,30 +504,25 @@ html {
 [data-md-color-scheme="slate"] .highlight .vg,
 [data-md-color-scheme="slate"] .highlight .vi,
 [data-md-color-scheme="slate"] .highlight .na {
-  color: #79c0ff !important; /* Variables */
+  color: var(--ryoku-ink);
 }
 
 [data-md-color-scheme="slate"] .highlight .o,
 [data-md-color-scheme="slate"] .highlight .ow {
-  color: #ff7b72 !important; /* Operators */
+  color: #ff6b61 !important; /* Operators */
 }
 
 [data-md-color-scheme="slate"] .highlight .p {
-  color: #c9d1d9 !important; /* Punctuation */
+  color: #8b949e !important; /* Punctuation */
 }
 
-/* Light mode syntax colors (Default) */
-[data-md-color-scheme="default"] {
-  --md-code-bg-color: #f6f8fa;
-  --md-code-fg-color: #24292f;
-}
-
+/* Syntax Token Colors (Light Mode) */
 [data-md-color-scheme="default"] .highlight .k,
 [data-md-color-scheme="default"] .highlight .kd,
 [data-md-color-scheme="default"] .highlight .kn,
 [data-md-color-scheme="default"] .highlight .kp,
 [data-md-color-scheme="default"] .highlight .kr {
-  color: #cf222e !important;
+  color: #c92a20 !important;
   font-weight: 600;
 }
 
@@ -384,7 +533,7 @@ html {
 [data-md-color-scheme="default"] .highlight .sh,
 [data-md-color-scheme="default"] .highlight .sr,
 [data-md-color-scheme="default"] .highlight .cpf {
-  color: #0a3069 !important;
+  color: #1a6f3b !important;
 }
 
 [data-md-color-scheme="default"] .highlight .m,
@@ -394,26 +543,19 @@ html {
 [data-md-color-scheme="default"] .highlight .mi,
 [data-md-color-scheme="default"] .highlight .mo,
 [data-md-color-scheme="default"] .highlight .il {
-  color: #953800 !important;
+  color: #a85200 !important;
 }
 
 [data-md-color-scheme="default"] .highlight .nf,
 [data-md-color-scheme="default"] .highlight .fm {
-  color: #8250df !important;
+  color: #0352a0 !important;
   font-weight: 600;
 }
 
 [data-md-color-scheme="default"] .highlight .nb,
 [data-md-color-scheme="default"] .highlight .bp,
 [data-md-color-scheme="default"] .highlight .no {
-  color: #116329 !important;
-}
-
-[data-md-color-scheme="default"] .highlight .nc,
-[data-md-color-scheme="default"] .highlight .ne,
-[data-md-color-scheme="default"] .highlight .nn {
-  color: #953800 !important;
-  font-weight: 600;
+  color: #1a6f3b !important;
 }
 
 [data-md-color-scheme="default"] .highlight .c,
@@ -422,190 +564,151 @@ html {
 [data-md-color-scheme="default"] .highlight .cm,
 [data-md-color-scheme="default"] .highlight .cp,
 [data-md-color-scheme="default"] .highlight .cs {
-  color: #6e7781 !important;
+  color: #797167 !important;
   font-style: italic;
 }
 
 /* ==========================================================================
-   Admonitions & Callouts (High Contrast, Distinct Colored Left Border)
+   Admonitions (Ryoku Precision Technical Callouts)
    ========================================================================== */
 
 .md-typeset .admonition,
 .md-typeset details {
-  border-radius: 9px !important;
-  border-width: 1px 1px 1px 4px !important;
+  border-radius: var(--ryoku-radius) !important;
+  border-width: 1px 1px 1px 3px !important;
+  border-style: solid !important;
   box-shadow: none !important;
-  font-size: 0.82rem;
+  font-size: 0.81rem;
   margin: 0.9em 0 !important;
-  padding: 0.6rem 0.9rem !important;
+  padding: 0.65rem 0.95rem !important;
+  background-color: var(--ryoku-paper-raised) !important;
 }
 
 .md-typeset .admonition-title,
 .md-typeset summary {
+  font-family: var(--ryoku-font-sans) !important;
   font-weight: 700 !important;
-  font-size: 0.84rem !important;
+  font-size: 0.83rem !important;
+  letter-spacing: -0.01em;
   margin: 0 0 0.35rem 0 !important;
 }
 
-/* Danger / Critical */
+/* Danger / Critical: Cinnabar Red */
 .md-typeset .admonition.danger {
-  border-left-color: #ef4444 !important;
+  border-color: var(--ryoku-line) !important;
+  border-left-color: var(--ryoku-sun) !important;
 }
-[data-md-color-scheme="slate"] .md-typeset .admonition.danger {
-  background: rgba(239, 68, 68, 0.08) !important;
-}
-[data-md-color-scheme="slate"] .md-typeset .admonition.danger > .admonition-title {
-  color: #f87171 !important;
-}
-[data-md-color-scheme="default"] .md-typeset .admonition.danger {
-  background: rgba(239, 68, 68, 0.05) !important;
+.md-typeset .admonition.danger > .admonition-title {
+  color: #ff6b61 !important;
 }
 [data-md-color-scheme="default"] .md-typeset .admonition.danger > .admonition-title {
-  color: #dc2626 !important;
+  color: #c92a20 !important;
 }
 
-/* Warning */
+/* Warning: Warm Amber */
 .md-typeset .admonition.warning {
-  border-left-color: #f59e0b !important;
+  border-color: var(--ryoku-line) !important;
+  border-left-color: var(--ryoku-amber) !important;
 }
-[data-md-color-scheme="slate"] .md-typeset .admonition.warning {
-  background: rgba(245, 158, 11, 0.08) !important;
-}
-[data-md-color-scheme="slate"] .md-typeset .admonition.warning > .admonition-title {
-  color: #fbbf24 !important;
-}
-[data-md-color-scheme="default"] .md-typeset .admonition.warning {
-  background: rgba(245, 158, 11, 0.05) !important;
-}
-[data-md-color-scheme="default"] .md-typeset .admonition.warning > .admonition-title {
-  color: #d97706 !important;
+.md-typeset .admonition.warning > .admonition-title {
+  color: var(--ryoku-amber) !important;
 }
 
-/* Tip / Success */
+/* Tip: Jade Green */
 .md-typeset .admonition.tip {
-  border-left-color: #10b981 !important;
+  border-color: var(--ryoku-line) !important;
+  border-left-color: var(--ryoku-jade) !important;
 }
-[data-md-color-scheme="slate"] .md-typeset .admonition.tip {
-  background: rgba(16, 185, 129, 0.08) !important;
-}
-[data-md-color-scheme="slate"] .md-typeset .admonition.tip > .admonition-title {
-  color: #34d399 !important;
-}
-[data-md-color-scheme="default"] .md-typeset .admonition.tip {
-  background: rgba(16, 185, 129, 0.05) !important;
-}
-[data-md-color-scheme="default"] .md-typeset .admonition.tip > .admonition-title {
-  color: #059669 !important;
+.md-typeset .admonition.tip > .admonition-title {
+  color: var(--ryoku-jade) !important;
 }
 
-/* Note / Info / Important */
+/* Note / Info / Important: Steel Blue */
 .md-typeset .admonition.note,
 .md-typeset .admonition.important,
 .md-typeset .admonition.info {
-  border-left-color: #3b82f6 !important;
+  border-color: var(--ryoku-line) !important;
+  border-left-color: var(--ryoku-steel) !important;
 }
-[data-md-color-scheme="slate"] .md-typeset .admonition.note,
-[data-md-color-scheme="slate"] .md-typeset .admonition.important,
-[data-md-color-scheme="slate"] .md-typeset .admonition.info {
-  background: rgba(59, 130, 246, 0.08) !important;
-}
-[data-md-color-scheme="slate"] .md-typeset .admonition.note > .admonition-title,
-[data-md-color-scheme="slate"] .md-typeset .admonition.important > .admonition-title,
-[data-md-color-scheme="slate"] .md-typeset .admonition.info > .admonition-title {
-  color: #60a5fa !important;
-}
-[data-md-color-scheme="default"] .md-typeset .admonition.note,
-[data-md-color-scheme="default"] .md-typeset .admonition.important,
-[data-md-color-scheme="default"] .md-typeset .admonition.info {
-  background: rgba(59, 130, 246, 0.05) !important;
-}
-[data-md-color-scheme="default"] .md-typeset .admonition.note > .admonition-title,
-[data-md-color-scheme="default"] .md-typeset .admonition.important > .admonition-title,
-[data-md-color-scheme="default"] .md-typeset .admonition.info > .admonition-title {
-  color: #2563eb !important;
+.md-typeset .admonition.note > .admonition-title,
+.md-typeset .admonition.important > .admonition-title,
+.md-typeset .admonition.info > .admonition-title {
+  color: var(--ryoku-steel) !important;
 }
 
-/* Status Chips */
-.status-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.4rem;
-  margin: 0.6rem 0 0.9rem;
+/* Keyboard Shortcut Badges */
+.md-typeset kbd {
+  font-family: var(--ryoku-font-mono) !important;
+  font-size: 0.74em;
+  padding: 0.12em 0.42em;
+  border-radius: 2px;
+  background: var(--ryoku-paper-raised);
+  border: 1px solid var(--ryoku-line);
+  color: var(--ryoku-ink);
+  box-shadow: none;
 }
 
-.status-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.2rem 0.5rem;
-  border: 1px solid var(--guide-line);
-  border-radius: 999px;
-  background: var(--guide-surface);
-  font-size: 0.7rem;
-  font-weight: 700;
-}
-
-.status-chip.good {
-  border-color: rgba(16, 185, 129, 0.4);
-  background: rgba(16, 185, 129, 0.08);
-  color: #10b981;
-}
-
-.status-chip.warn {
-  border-color: rgba(245, 158, 11, 0.4);
-  background: rgba(245, 158, 11, 0.08);
-  color: #f59e0b;
-}
-
-.status-chip.info {
-  border-color: rgba(59, 130, 246, 0.4);
-  background: rgba(59, 130, 246, 0.08);
-  color: #3b82f6;
-}
-
-/* Tables */
+/* Tables (Technical Clean Grid) */
 .md-typeset table:not([class]) {
-  border: 1px solid var(--guide-line);
-  border-radius: 9px;
+  border: 1px solid var(--ryoku-line);
+  border-radius: var(--ryoku-radius);
   overflow: hidden;
-  font-size: 0.81rem;
-  margin: 0.9rem 0;
+  font-size: 0.80rem;
+  margin: 1em 0;
 }
 
 .md-typeset table:not([class]) th {
-  background: rgba(59, 130, 246, 0.08);
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
+  background: rgba(205, 196, 186, 0.05);
+  font-family: var(--ryoku-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-weight: 700;
-  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  padding: 0.5rem 0.8rem;
+  border-bottom: 1px solid var(--ryoku-line);
 }
 
 .md-typeset table:not([class]) td {
-  padding: 0.5rem 0.75rem;
-  vertical-align: middle;
+  padding: 0.55rem 0.8rem;
+  border-bottom: 1px solid var(--ryoku-line-soft);
 }
 
-/* Tabs & Header */
-.md-header {
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-  border-bottom: 1px solid var(--guide-line);
+/* Buttons */
+.md-button {
+  font-family: var(--ryoku-font-sans);
+  font-size: 0.78rem !important;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: var(--ryoku-radius) !important;
+  padding: 0.45em 1em !important;
+  transition: all 0.12s ease;
 }
 
-.md-tabs {
-  border-bottom: 1px solid var(--guide-line);
+.md-button--primary {
+  background-color: var(--ryoku-sun) !important;
+  border-color: var(--ryoku-sun) !important;
+  color: #ffffff !important;
 }
 
-.md-nav__link--active,
-.md-nav__link:focus,
-.md-nav__link:hover {
-  color: var(--guide-blue);
+.md-button--primary:hover {
+  background-color: #f0443a !important;
+  border-color: #f0443a !important;
+}
+
+.md-button:not(.md-button--primary) {
+  border: 1px solid var(--ryoku-line) !important;
+  color: var(--ryoku-ink) !important;
+  background: transparent !important;
+}
+
+.md-button:not(.md-button--primary):hover {
+  border-color: var(--ryoku-sun) !important;
+  color: var(--ryoku-sun) !important;
 }
 
 @media (max-width: 768px) {
   .hero-panel {
-    padding: 1.1rem 1.1rem;
+    padding: 1.1rem 1.15rem;
   }
   .card-grid {
     grid-template-columns: 1fr;

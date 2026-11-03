@@ -1,5 +1,5 @@
 <div class="hero-panel">
-  <span class="hero-kicker">Windows · VapourSynth R80+ · NVIDIA TensorRT · ONNX</span>
+  <span class="hero-kicker">Windows / VapourSynth R80+ / NVIDIA TensorRT / ONNX</span>
   <h1>Modern VapourSynth AI Video Setup Guide</h1>
   <p class="hero-lede">A clean, straight-to-the-point installation guide for modern VapourSynth (API 4), NVIDIA GPU runtimes (TensorRT & ORT), and AI video models (AnimeJaNai, RIFE v4.26, Waifu2x).</p>
   <div class="hero-meta">
@@ -273,22 +273,22 @@ vspipe -c y4m test.vpy - | ffmpeg -i - -c:v hevc_nvenc -preset p7 -cq 18 output_
 
 <div class="card-grid">
   <div class="doc-card">
-    <span class="card-index">01 · DETAILED SETUP</span>
+    <span class="card-index">01 / DETAILED SETUP</span>
     <h3><a href="installation/windows/">Step-by-Step Installation</a></h3>
     <p>Detailed explanation of package wheels, index URLs, and system environment variables.</p>
   </div>
   <div class="doc-card">
-    <span class="card-index">02 · VERIFICATION</span>
+    <span class="card-index">02 / VERIFICATION</span>
     <h3><a href="installation/verification/">Verification & Diagnostics</a></h3>
     <p>Health-checks for TRT engines, CUDA drivers, and plugin namespace auditing.</p>
   </div>
   <div class="doc-card">
-    <span class="card-index">03 · AI MODELS</span>
+    <span class="card-index">03 / AI MODELS</span>
     <h3><a href="models/">Model Workflows</a></h3>
     <p>Guides for AnimeJaNai 2x upscaling, RIFE v4.26 frame interpolation, and Waifu2x.</p>
   </div>
   <div class="doc-card">
-    <span class="card-index">04 · TROUBLESHOOTING</span>
+    <span class="card-index">04 / TROUBLESHOOTING</span>
     <h3><a href="troubleshooting/">Troubleshooting & Fixes</a></h3>
     <p>Straightforward fixes for API 3 deprecations, TRT initialization failures, and codec issues.</p>
   </div>

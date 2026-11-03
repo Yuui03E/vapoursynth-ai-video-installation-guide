@@ -1,4 +1,4 @@
-# AnimeJaNai · 2× Anime Upscaling
+# AnimeJaNai / 2× Anime Upscaling
 
 AnimeJaNai is an ultra-fast, high-quality neural network designed specifically for anime line-art upscaling. The **Compact** variant delivers near-instant inference when paired with TensorRT FP16.
 
