@@ -3,7 +3,7 @@ site_description: Straightforward Windows installation and workflow guide for Va
 site_url: https://yuui03e.github.io/vapoursynth-ai-video-installation-guide/
 repo_url: https://github.com/Yuui03E/vapoursynth-ai-video-installation-guide
 repo_name: Yuui03E/vapoursynth-ai-video-installation-guide
-edit_uri: edit/dev/docs/
+edit_uri: edit/main/docs/
 docs_dir: docs
 site_dir: site
 
